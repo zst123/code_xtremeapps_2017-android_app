@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Jimmy Neutron</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="main_activity_login">Login</string>
+    <string name="main_activity_username">Username</string>
+    <string name="main_activity_password">Password</string>
+</resources>
