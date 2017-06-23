@@ -71,15 +71,16 @@ public class BaselineMapFragment extends Fragment {
         // SweetSheet 控件,根据 rl 确认位置
         SweetSheet mSweetSheet3 = new SweetSheet((FrameLayout) getActivity().getWindow().getDecorView());
         //mSweetSheet3.setBackgroundEffect(new BlurEffect(8));
-
         View view = LayoutInflater.from(thiz).inflate(R.layout.dialog_baseline_popup, null, false);
+        view.setOnClickListener(view1 -> {
 
+        });
         //定义一个 CustomDelegate 的 Delegate ,并且设置它的出现动画.
         CustomDelegate customDelegate = new CustomDelegate(true,
-                CustomDelegate.AnimationType.DuangLayoutAnimation);
+                CustomDelegate.AnimationType.AlphaAnimation);
         customDelegate.setCustomView(view);
+        //customDelegate.setContentHeight((int) Common.dp_to_px(thiz.getResources(), 300));
         mSweetSheet3.setDelegate(customDelegate);
-
         ((TextView)view.findViewById(android.R.id.text1)).setText(text);
         mSweetSheet3.show();
 

@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
 
     <TextView
         android:id="@android:id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hi"
-        android:textSize="32dp"
-        android:textColor="#000" />
-
-    <Button
-        android:id="@+id/button3"
+        android:text="Desk Name"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:textColor="#000"
+        android:layout_margin="0sp"/>
+    <TextView
+        android:id="@android:id/text2"
+        android:layout_below="@android:id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="Description of desk"
+        android:gravity="left"
+        android:textSize="18sp"
+        android:textColor="#000"
+        android:layout_margin="8sp"/>
 
-</LinearLayout>
+    <Button
+        android:id="@android:id/button1"
+        android:layout_below="@android:id/text2"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Book"
+        android:layout_margin="8sp"/>
+
+
+
+</RelativeLayout>
