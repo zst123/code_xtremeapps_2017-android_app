@@ -107,19 +107,31 @@ public class BaselineBookingDialog {
                 @Override
                 public void run() {
                     try {
-                        Connection c = Jsoup.connect(Common.URL_BOOKING +
+                        /*
+                         +
                                 "?bookingId=" + urlEncode("This should be done by the server") +
-                                "?username=" + urlEncode(username) +
-                                "?seatId=" + urlEncode(desk.seatId) +
-                                "?startTime=" + urlEncode("starting") +
-                                "?endTime=" + urlEncode("ending") +
-                                "?lunchStartTime=" + urlEncode("I can change my mind when I have lunch") +
-                                "?lunchEndTime=" + urlEncode("ditto") +
-                                "?lunchStatus=" + urlEncode("I don't know the status now")
-                        );
+                                "&username=" + urlEncode(username) +
+                                "&seatId=" + urlEncode(desk.seatId) +
+                                "&startTime=" + urlEncode("starting") +
+                                "&endTime=" + urlEncode("ending") +
+                                "&lunchStartTime=" + urlEncode("I can change my mind when I have lunch") +
+                                "&lunchEndTime=" + urlEncode("ditto") +
+                                "&lunchStatus=" + urlEncode("I don't know the status now"
+                         */
+                        Connection c = Jsoup.connect(Common.URL_BOOKING)
+                                .data("bookingId", "This should be done by the server")
+                                .data("username", username)
+                                .data("seatId", desk.seatId)
+                                .data("startTime", "starting")
+                                .data("endTime", "ending")
+                                .data("lunchStartTime", "I can change my mind when I have lunch")
+                                .data("lunchEndTime", "ditto")
+                                .data("lunchStatus", "I don't know the status now")
+                                .ignoreHttpErrors(true);
                         Document doc = c.post();
+
                         a.runOnUiThread(() -> {
-                            Toast.makeText(a, doc.body().toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(a, doc.text(), Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         });
                     } catch (IOException e) {
