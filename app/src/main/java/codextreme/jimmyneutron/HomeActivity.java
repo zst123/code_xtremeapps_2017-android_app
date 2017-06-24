@@ -1,5 +1,6 @@
 package codextreme.jimmyneutron;
 
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -26,6 +27,18 @@ public class HomeActivity extends MaterialActivity {
     public static final String URL_TEST =
             "https://assets.entrepreneur.com/content/16x9/822/20160118164234-interior-modern-office-desks-space-computers.jpeg";
 
+    BaselineMapFragment fragmentOfficeView;
+
+    public void initFragments() {
+        if (fragmentOfficeView == null) {
+            fragmentOfficeView = new BaselineMapFragment();
+            Bundle args = new Bundle();
+            args.putString(BUNDLE_URL, URL_TEST);
+            fragmentOfficeView.setArguments(args);
+        }
+
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,26 +55,37 @@ public class HomeActivity extends MaterialActivity {
         // Init sidebar list view
         ListView listView = (ListView) findViewById(R.id.sidebar_listview);
         SidebarListAdapter adapter = new SidebarListAdapter(this)
-                .add("List-item A")
-                .add("List-item B")
-                .add("List-item C")
-                .add("List-item D")
-                .add("List-item E")
-                .add("List-item F")
-                .add("List-item G")
-                .add("List-item H")
-                .add("List-item I")
-                .add("List-item J")
-                .add("List-item K")
-                .add("List-item L");
+                .add("Office View")
+                .add("Booking")
+                .add("Word Cloud");
         listView.setAdapter(adapter);
         listView.setOnItemClickListener((adapterView, view, position, id) -> {
+            Fragment newFragment = null;
             String itemValue = (String) listView.getItemAtPosition(position);
-            Toast.makeText(getApplicationContext(),
-                    "Position :" + position + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
-                    .show();
+            switch (itemValue) {
+                case "Office View":
+                    newFragment = fragmentOfficeView;
+                    break;
+                case "Booking":
+                    break;
+                case "Word Cloud":
+                    break;
+                default:
+                    break;
+            }
+            if (newFragment != null) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, newFragment);
+                // transaction.addToBackStack(null); // Back button to previous fragment
+                transaction.commit();
+            } else {
+                Toast.makeText(getApplicationContext(),
+                        "Position :" + position + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
+                        .show();
+            }
         });
 
+        initFragments();
 
         //http://www.marinabaysands.com/content/dam/singapore/marinabaysands/master/main/home/hotel/web%20redesign%20room%20images/Club%20Room/club-room-garden-view.jpg
 
@@ -71,35 +95,13 @@ public class HomeActivity extends MaterialActivity {
             // However, if we're being restored from a previous state,
             // then we don't need to do anything and should return or else
             // we could end up with overlapping fragments.
-
             if (savedInstanceState == null) {
-                // Create a new Fragment to be placed in the activity layout
-                BaselineMapFragment firstFragment = new BaselineMapFragment();
-
-                // In case this activity was started with special instructions from an
-                // Intent, pass the Intent's extras to the fragment as arguments
-                Bundle args = new Bundle();
-                args.putString(BUNDLE_URL, URL_TEST);
-                firstFragment.setArguments(args);
-
                 // Add the fragment to the 'fragment_container' FrameLayout
                 getFragmentManager().beginTransaction()
-                        .add(R.id.fragment_container, firstFragment).commit();
+                        .add(R.id.fragment_container, fragmentOfficeView).commit();
 
             }
         }
-/*
-        findViewById(R.id.toggleButton2).setOnClickListener(view -> {
-            Testfrag newFragment = new Testfrag();
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            // Replace whatever is in the fragment_container view with this fragment,
-            // and add the transaction to the back stack so the user can navigate back
-            transaction.replace(R.id.fragment_container, newFragment);
-            //transaction.addToBackStack(null);
-
-            // Commit the transaction
-            transaction.commit();
-        });*/
     }
 
 
