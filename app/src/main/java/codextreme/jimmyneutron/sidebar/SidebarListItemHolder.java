@@ -40,6 +40,11 @@ public class SidebarListItemHolder extends LinearLayout {
         return this;
     }
 
+    public SidebarListItemHolder setIcon(int id) {
+        mIcon.setImageResource(id);
+        return this;
+    }
+
     public SidebarListItemHolder setLabel(CharSequence str) {
         if (TextUtils.isEmpty(str)) {
             mLabel.setText(this.getContext().getResources().getString(android.R.string.unknownName));

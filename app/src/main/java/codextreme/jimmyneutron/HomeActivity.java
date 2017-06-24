@@ -55,14 +55,15 @@ public class HomeActivity extends MaterialActivity {
         // Init sidebar list view
         ListView listView = (ListView) findViewById(R.id.sidebar_listview);
         SidebarListAdapter adapter = new SidebarListAdapter(this)
-                .add("Office View")
-                .add("Booking")
-                .add("Word Cloud");
+                .add("Office View", R.drawable.ic_desktop_mac_black_24dp)
+                .add("Booking", R.drawable.ic_book_black_24dp)
+                .add("Word Cloud", R.drawable.ic_cloud_black_24dp);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener((adapterView, view, position, id) -> {
             Fragment newFragment = null;
-            String itemValue = (String) listView.getItemAtPosition(position);
-            switch (itemValue) {
+            SidebarListAdapter.SidebarListAdapterItem itemValue =
+                    (SidebarListAdapter.SidebarListAdapterItem) listView.getItemAtPosition(position);
+            switch (itemValue.text) {
                 case "Office View":
                     newFragment = fragmentOfficeView;
                     break;

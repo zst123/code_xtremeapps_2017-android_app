@@ -26,19 +26,19 @@ import codextreme.jimmyneutron.R;
 
 public class SidebarListAdapter extends BaseAdapter {
 
-    List<String> mListEntries = new LinkedList<>();
+    List<SidebarListAdapterItem> mListEntries = new LinkedList<>();
     // temp. list holding the filtered items
 
     public SidebarListAdapter(Context context) {
     }
 
-    public SidebarListAdapter setList(List<String> input) {
+    public SidebarListAdapter setList(List<SidebarListAdapterItem> input) {
         mListEntries.clear();
         mListEntries.addAll(input);
         return this;
     }
-    public SidebarListAdapter add(String entry) {
-        mListEntries.add(entry);
+    public SidebarListAdapter add(String entry, int iconId) {
+        mListEntries.add(new SidebarListAdapterItem(entry, iconId));
         return this;
     }
 
@@ -48,11 +48,11 @@ public class SidebarListAdapter extends BaseAdapter {
     }
 
     @Override
-    public String getItem(int position) {
+    public SidebarListAdapterItem getItem(int position) {
         try {
             return mListEntries.get(position);
         } catch (Exception e) {
-            return "";
+            return new SidebarListAdapterItem("", 0);
         }
     }
 
@@ -68,8 +68,17 @@ public class SidebarListAdapter extends BaseAdapter {
             convertView = new SidebarListItemHolder(parent.getContext());
         }
         holder = (SidebarListItemHolder) convertView;
-        holder.setIcon(null); //TODO generate icon
-        holder.setLabel(getItem(position));
+        holder.setIcon(getItem(position).iconId); //TODO generate icon
+        holder.setLabel(getItem(position).text);
         return convertView;
+    }
+
+    public class SidebarListAdapterItem {
+        public String text;
+        public int iconId;
+        SidebarListAdapterItem(String t, int i) {
+            text = t;
+            iconId = i;
+        }
     }
 }
