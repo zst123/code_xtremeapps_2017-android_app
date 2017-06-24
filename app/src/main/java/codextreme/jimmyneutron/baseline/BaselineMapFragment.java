@@ -3,7 +3,9 @@ package codextreme.jimmyneutron.baseline;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +29,11 @@ import static codextreme.jimmyneutron.Common.percent_of_in_range;
 // https://developer.android.com/training/basics/fragments/fragment-ui.html
 public class BaselineMapFragment extends Fragment {
     public static final String BUNDLE_URL = "url";
+    public static final String BUNDLE_USER = "user";
     private BaselineMapView imageView;
     private LinearLayout linearLayout;
+
+    public static String mUsername;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,7 +64,7 @@ public class BaselineMapFragment extends Fragment {
         imageView.setDeskClickListener(new BaselineMapView.DeskClickListener() {
             @Override
             public void onDeskClick(BaselineMapView.DeskHolder desk) {
-                showDialog(getActivity(), desk.name);
+                showDialog(getActivity(), desk);
             }
         });
 
@@ -67,33 +72,30 @@ public class BaselineMapFragment extends Fragment {
     }
 
 
-    public void showDialog(Context thiz, String text) {
+    public void showDialog(Context thiz, BaselineMapView.DeskHolder desk) {
         // SweetSheet 控件,根据 rl 确认位置
         SweetSheet mSweetSheet3 = new SweetSheet((FrameLayout) getActivity().getWindow().getDecorView());
         //mSweetSheet3.setBackgroundEffect(new BlurEffect(8));
         View view = LayoutInflater.from(thiz).inflate(R.layout.dialog_baseline_popup, null, false);
-        view.setOnClickListener(view1 -> {
-
-        });
         //定义一个 CustomDelegate 的 Delegate ,并且设置它的出现动画.
         CustomDelegate customDelegate = new CustomDelegate(true,
                 CustomDelegate.AnimationType.AlphaAnimation);
         customDelegate.setCustomView(view);
-        //customDelegate.setContentHeight((int) Common.dp_to_px(thiz.getResources(), 300));
         mSweetSheet3.setDelegate(customDelegate);
-        ((TextView)view.findViewById(android.R.id.text1)).setText(text);
+        ((TextView)view.findViewById(android.R.id.text1)).setText(desk.name);
         mSweetSheet3.show();
 
-        /*
-        //因为使用了 CustomDelegate 所以mSweetSheet3中的 setMenuList和setOnMenuItemClickListener就没有效果了
-        view.findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSweetSheet3.dismiss();
-            }
-        });*/
-        //监听返回
+        view.findViewById(android.R.id.button1).setOnClickListener(v -> {
+            Context darkContext = new ContextThemeWrapper(v.getContext(), R.style.Theme_AppCompat_Light_Dialog);
 
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(darkContext);
+            LayoutInflater inflater = LayoutInflater.from(darkContext);
+
+            AlertDialog alertDialog = dialogBuilder.create();
+            View dialogView = BaselineBookingDialog.createDialogView(getActivity(), inflater, desk, mUsername, alertDialog);
+            alertDialog.setView(dialogView);
+            alertDialog.show();
+        });
     }
 
 
@@ -114,6 +116,8 @@ public class BaselineMapFragment extends Fragment {
                         .placeholder(R.drawable.ic_done)
                         .into(imageView);
             }
+
+            //mUsername = bundle.getString(BUNDLE_USER);
         }
     }
 

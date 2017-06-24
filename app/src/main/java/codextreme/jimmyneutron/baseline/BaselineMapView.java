@@ -55,21 +55,17 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
                 int touchX = (int) event.getX();
                 int touchY = (int) event.getY();
 
-                Toast.makeText(context,
-                        "inside2 Touch coordinates : x = " +
-                                touchX + " & y = " + touchY
-                        , Toast.LENGTH_SHORT).show();
-
                 for (DeskHolder desk : mDesks) {
                     if (Common.is_point_within_path(desk.path, touchX, touchY)) {
                         if (mDeskClickListener != null) {
                             mDeskClickListener.onDeskClick(desk);
                         }
                         invalidate();
+                        Toast.makeText(context,
+                                "Touched: "+desk.name
+                                , Toast.LENGTH_SHORT).show();
                     }
-                    Toast.makeText(context,
-                            "Touched: "+desk.name
-                            , Toast.LENGTH_SHORT).show();
+
                 }
 
 
@@ -93,11 +89,29 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
 
             @Override
             public boolean onSingleTapUp(MotionEvent event) {
-
-
                 return super.onSingleTapUp(event);
             }
         });
+
+
+        //TODO init desk from online
+        mDesks.clear();
+
+        mDesks.add(new DeskHolder(
+                488, 173,
+                490, 208,
+                560, 206,
+                560, 171,
+                Color.RED, "TV", "432342"
+        ));
+
+        mDesks.add(new DeskHolder(
+                296, 384,
+                296, 294,
+                392, 273,
+                393, 336,
+                Color.BLUE, "Desk 2", "43545"
+        ));
     }
 
     @Override
@@ -106,37 +120,17 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
     }
 
     @Override
-    @SuppressLint("DrawAllocation")
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        mDesks.clear();
 
         int c_w = getWidth();//canvas.getWidth();
         int c_h = getHeight();//canvas.getHeight();
         float ratio_x = c_w * 1.0f / getDrawable().getIntrinsicWidth();
         float ratio_y = c_h * 1.0f / getDrawable().getIntrinsicHeight();
 
-        mDesks.add(new DeskHolder(
-                createPathPolygonScaled(
-                        488, 173,
-                        490, 208,
-                        560, 206,
-                        560, 171,
-                        ratio_x, ratio_y),
-                Color.RED,
-                "TV"
-        ));
-
-        mDesks.add(new DeskHolder(
-                createPathPolygonScaled(
-                        296, 384,
-                        296, 294,
-                        392, 273,
-                        393, 336,
-                        ratio_x, ratio_y),
-                Color.BLUE,
-                "Desk 2"
-        ));
+        for (DeskHolder desk : mDesks) {
+            desk.setScale(ratio_x, ratio_y);
+        }
     }
 
     @Override
@@ -238,14 +232,46 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
     }
 
     public class DeskHolder {
-        Path path;
+        Path path = null;
         int color;
         String name;
+        int x1;
+        int y1;
+        int x2;
+        int y2;
+        int x3;
+        int y3;
+        int x4;
+        int y4;
+        String seatId;
 
-        public DeskHolder(Path p, int c, String n) {
-            path = p;
+        public DeskHolder(
+                int x1, int y1,
+                int x2, int y2,
+                int x3, int y3,
+                int x4, int y4,
+                int c, String n, String seatId) {
+            this.x1 = x1;
+            this.x2 = x2;
+            this.x3 = x3;
+            this.x4 = x4;
+            this.y1 = y1;
+            this.y2 = y2;
+            this.y3 = y3;
+            this.y4 = y4;
+            this.seatId = seatId;
             color = c;
             name = n;
+        }
+
+        public Path setScale(float sX, float sY) {
+            path = createPathPolygonScaled(
+                    x1, y1,
+                    x2, y2,
+                    x3, y3,
+                    x4, y4,
+                    sX, sY);
+            return path;
         }
     }
 }

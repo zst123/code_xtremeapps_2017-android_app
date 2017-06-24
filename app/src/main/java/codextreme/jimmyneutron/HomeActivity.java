@@ -17,6 +17,9 @@ import codextreme.jimmyneutron.baseline.BaselineMapFragment;
 import codextreme.jimmyneutron.interfaces.MaterialActivity;
 import codextreme.jimmyneutron.sidebar.SidebarListAdapter;
 
+import static codextreme.jimmyneutron.baseline.BaselineMapFragment.BUNDLE_URL;
+import static codextreme.jimmyneutron.baseline.BaselineMapFragment.BUNDLE_USER;
+
 
 public class HomeActivity extends MaterialActivity {
 
@@ -76,7 +79,7 @@ public class HomeActivity extends MaterialActivity {
                 // In case this activity was started with special instructions from an
                 // Intent, pass the Intent's extras to the fragment as arguments
                 Bundle args = new Bundle();
-                args.putString(BaselineMapFragment.BUNDLE_URL, URL_TEST);
+                args.putString(BUNDLE_URL, URL_TEST);
                 firstFragment.setArguments(args);
 
                 // Add the fragment to the 'fragment_container' FrameLayout

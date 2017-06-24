@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 24
     buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "codextreme.jimmyneutron"
@@ -41,10 +41,21 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.dmytrodanylyk:android-morphing-button:98a4986e56' // commit hash
+    // compile 'com.github.jjobes:SlideDateTimePicker:v1.0.4' // commit hash
+    compile 'com.wdullaer:materialdatetimepicker:3.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+
+    compile 'org.jsoup:jsoup:1.10.3'
 
 
+    //noinspection GradleCompatible
     compile 'com.android.support:appcompat-v7:23.4.0'
+    //noinspection GradleCompatible
     compile 'com.android.support:design:23.4.0'
+    //noinspection GradleCompatible
     compile 'com.android.support:gridlayout-v7:23.4.0'
 
     compile 'com.android.support.constraint:constraint-layout:1.0.2'

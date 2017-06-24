@@ -6,10 +6,25 @@ import android.graphics.RectF;
 import android.graphics.Region;
 import android.util.TypedValue;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public class Common {
 
     public static final boolean DEBUG = true;
 
+    public static final String URL_BOOKING = "http://codextremejimmyneutron.azurewebsites.net/webservice.asmx/CreateNewBooking";
+    public static final String USER_AGENT = "Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30";
+    //"Code Xtreme Jimmy Neutron App";
+
+    public static String urlEncode(String in) {
+        try {
+            return URLEncoder.encode(in, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public static float dp_to_px(Resources r, int dp) {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
     }
