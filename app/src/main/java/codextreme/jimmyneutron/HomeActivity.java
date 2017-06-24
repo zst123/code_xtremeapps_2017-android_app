@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import codextreme.jimmyneutron.baseline.BaselineMapFragment;
 import codextreme.jimmyneutron.interfaces.MaterialActivity;
 import codextreme.jimmyneutron.sidebar.SidebarListAdapter;
+import codextreme.jimmyneutron.wordcloud.WordCloudFragment;
 
 import static codextreme.jimmyneutron.baseline.BaselineMapFragment.BUNDLE_URL;
 import static codextreme.jimmyneutron.baseline.BaselineMapFragment.BUNDLE_USER;
@@ -28,6 +29,7 @@ public class HomeActivity extends MaterialActivity {
             "https://assets.entrepreneur.com/content/16x9/822/20160118164234-interior-modern-office-desks-space-computers.jpeg";
 
     BaselineMapFragment fragmentOfficeView;
+    WordCloudFragment fragmentWordCloud;
 
     public void initFragments() {
         if (fragmentOfficeView == null) {
@@ -37,7 +39,9 @@ public class HomeActivity extends MaterialActivity {
             fragmentOfficeView.setArguments(args);
         }
 
-
+        if (fragmentWordCloud == null) {
+            fragmentWordCloud = new WordCloudFragment();
+        }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +74,7 @@ public class HomeActivity extends MaterialActivity {
                 case "Booking":
                     break;
                 case "Word Cloud":
+                    newFragment = fragmentWordCloud;
                     break;
                 default:
                     break;

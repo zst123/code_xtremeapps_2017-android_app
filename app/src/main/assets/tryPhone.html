@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+<script src="file:///android_asset/d3.js"></script>
+<script src="file:///android_asset/d3.layout.cloud.js"></script>
+<script>
+var width=screen.width;
+var height=screen.height;
+console.log(width);
+console.log(height);
+
+  var fill = d3.scale.category20();
+  var myWords = [["din", 17], ["hai", 9], ["girl", 8], ["one", 8], ["boy", 7], ["love", 7], ["day", 7], ["life", 7], ["always", 6], ["student", 6], ["test", 6], ["new", 5], ["kya", 5], ["bhi", 5], ["make", 5], ["time", 5], ["marks", 4], ["difference", 4], ["never", 4], ["law", 4], ["attitude", 4], ["snake", 4], ["hota", 4], ["don", 4], ["sense", 4], ["mouse", 4], ["dean", 4], ["person", 4], ["dhund", 4], ["right", 4], ["back", 4], ["lack", 3], ["matlab", 3], ["dil", 3], ["change", 3], ["way", 3], ["mar", 3], ["front", 3], ["salesman", 3], ["think", 3], ["first", 3], ["night", 3], ["gives", 3], ["nahi", 3], ["singh", 3], ["2mrw", 3], ["ghante", 3], ["jin", 3], ["yaar", 3], ["cant", 3], ["just", 3]];
+  //[["modi", 56], ["kejriwal", 28], ["aap", 27], ["india", 16], ["hai", 14], ["delhi", 14], ["people", 13], ["now", 12], ["gujarat", 12], ["one", 10], ["govt", 10], ["sarkar", 10], ["congress", 10], ["get", 9], ["bar", 9], ["bjp", 9], ["gujrat", 8], ["vote", 8], ["singh", 8], ["state", 8], ["varanasi", 8], ["like", 8], ["water", 7], ["win", 7], ["tea", 7], ["country", 7], ["party", 7], ["big", 7], ["back", 7], ["acchedin", 6], ["even", 6], ["today", 6], ["work", 6], ["good", 6], ["corruption", 6], ["last", 6], ["votes", 5], ["punjab", 5], ["team", 5], ["new", 5], ["bjpmanifesto", 5], ["years", 5], ["baar", 5], ["food", 5], ["manmohan", 5], ["got", 5], ["polling", 5], ["honest", 5], ["lie", 5], ["com", 5], ["farmer", 5]];
+  var tmax = myWords[0][1];
+  var tmin = myWords[50][1];
+  d3.layout.cloud().size([300,480])
+      .words(myWords.map(function(d) {
+        return {text: d[0], size: 20 + 50*(d[1]-tmin)/(tmax-tmin)};
+      }))
+      .padding(5)
+      .rotate(function() { return ~~(Math.random() * 1) * 180; })
+      .font("Impact")
+      .fontSize(function(d) { return d.size; })
+      .on("end", draw)
+      .start();
+
+  function draw(words) {
+    d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+      .append("g")
+        .attr("transform", "translate(20,20)")
+      .selectAll("text")
+        .data(words)
+      .enter().append("text")
+        .style("font-size", function(d) { return d.size + "px"; })
+        .style("font-family", "Impact")
+        .style("fill", function(d, i) { return fill(i); })
+        .attr("text-anchor", "middle")
+        .attr("transform", function(d) {
+          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+        })
+        .text(function(d) { return d.text; });
+  }
+</script>
