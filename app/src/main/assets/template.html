@@ -29,13 +29,15 @@ var width = ##WIDTH##;
 <script>
 
 
-  var fill = d3.scale.category20();
+  var fill = d3.scale.category20b();
   var myWords = ##WORDS##;
   var tmax = myWords[0][1];
   var tmin = myWords[##COUNT##][1];
   d3.layout.cloud().size([##WIDTH##,##HEIGHT##])
       .words(myWords.map(function(d) {
-        return {text: d[0], size: 22 + ##COUNT##*(d[1]-tmin)/(tmax-tmin)};
+        return {text: d[0], size: 25 + ##COUNT##*(d[1]-tmin)/(tmax-tmin),
+            rotate: ~~(Math.random() * 1) * 180
+        };
       }))
       .padding(4)
       .rotate(function() { return ~~(Math.random() * 1) * 180; })
