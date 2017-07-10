@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -58,6 +59,15 @@ public class HomeActivity extends MaterialActivity {
         // Add drawer toggle (hamburger icon)
         final DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         createDrawerToggle(mDrawerLayout);
+
+        // Add button to close drawer
+        final ImageButton buttonCloseDrawer = (ImageButton) findViewById(R.id.button2);
+        buttonCloseDrawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDrawerLayout.closeDrawers();
+            }
+        });
 
         // Init sidebar list view
         final ListView listView = (ListView) findViewById(R.id.sidebar_listview);

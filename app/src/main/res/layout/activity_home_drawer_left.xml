@@ -61,7 +61,7 @@
                 android:layout_alignParentTop="true"
                 android:padding="8dp"
                 android:scaleType="fitCenter"
-                android:src="@android:drawable/ic_btn_speak_now"
+                android:src="@android:drawable/ic_menu_sort_by_size"
                 android:theme="@style/MyBorderlessButton" />
         </RelativeLayout>
 
