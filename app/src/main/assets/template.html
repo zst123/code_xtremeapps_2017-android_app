@@ -46,10 +46,10 @@ width=300;
   var fill = d3.scale.category20();
   var myWords = ##WORDS##;
   var tmax = myWords[0][1];
-  var tmin = myWords[50][1];
+  var tmin = myWords[##COUNT##][1];
   d3.layout.cloud().size([300,480])
       .words(myWords.map(function(d) {
-        return {text: d[0], size: 22 + 50*(d[1]-tmin)/(tmax-tmin)};
+        return {text: d[0], size: 22 + ##COUNT##*(d[1]-tmin)/(tmax-tmin)};
       }))
       .padding(4)
       .rotate(function() { return ~~(Math.random() * 1) * 180; })

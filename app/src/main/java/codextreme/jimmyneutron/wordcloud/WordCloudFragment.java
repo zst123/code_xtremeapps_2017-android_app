@@ -31,9 +31,10 @@ public class WordCloudFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_wordcloud, container, false);
 
 
-        // ""
-        //TODO to fix: array is hardcoded to 51 words in JS
-        String[] strArr = "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from".split(" ");
+        String[] strArr = (
+                "Contrary to popular belief, Lorem Ipsum is not simply random text. " +
+                "It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old."
+        ).split(" ");
         String wordJsArray = "[";
         for (int i = 0; i < strArr.length; i++) {
             String eachStr = strArr[i];
@@ -69,6 +70,7 @@ public class WordCloudFragment extends Fragment {
 
         String htmlData = AssetReader.read(getActivity(), "template.html");
         htmlData = htmlData.replace("##WORDS##", wordJsArray);
+        htmlData = htmlData.replace("##COUNT##", (strArr.length - 1) + "");
 
         browser = (WebView) view.findViewById(R.id.webView1);
         browser.getSettings().setLoadsImagesAutomatically(true);
