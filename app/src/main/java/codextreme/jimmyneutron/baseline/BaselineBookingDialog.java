@@ -1,6 +1,7 @@
 package codextreme.jimmyneutron.baseline;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.ContextThemeWrapper;
@@ -114,16 +115,6 @@ public class BaselineBookingDialog {
             }
         });
 
-        /*
-            bookingId:
-            username:
-            seatId:
-            startTime:
-            endTime:
-            lunchStartTime:
-            lunchEndTime:
-            lunchStatus:
-        */
         dialogView.findViewById(R.id.submitButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,34 +124,37 @@ public class BaselineBookingDialog {
                     @Override
                     public void run() {
                         try {
-                        /*
-                         +
-                                "?bookingId=" + urlEncode("This should be done by the server") +
-                                "&username=" + urlEncode(username) +
-                                "&seatId=" + urlEncode(desk.seatId) +
-                                "&startTime=" + urlEncode("starting") +
-                                "&endTime=" + urlEncode("ending") +
-                                "&lunchStartTime=" + urlEncode("I can change my mind when I have lunch") +
-                                "&lunchEndTime=" + urlEncode("ditto") +
-                                "&lunchStatus=" + urlEncode("I don't know the status now"
-                         */
+                            /*
+                            username:
+                            facilityId:
+                            facilityType:
+                            dateTimeBook:
+                            startTime:
+                            endTime:
+                            date:
+                            */
                             Connection c = Jsoup.connect(Common.URL_BOOKING)
-                                    .data("bookingId", "This should be done by the server")
                                     .data("username", username)
-                                    .data("seatId", desk.seatId)
-                                    .data("startTime", "starting")
-                                    .data("endTime", "ending")
-                                    .data("lunchStartTime", "I can change my mind when I have lunch")
-                                    .data("lunchEndTime", "ditto")
-                                    .data("lunchStatus", "I don't know the status now")
+                                    .data("facilityId", desk.seatId)
+                                    .data("facilityType", desk.seatType)
+                                    .data("startTime", startTimeButton.getText().toString())
+                                    .data("endTime", endTimeButton.getText().toString())
+                                    .data("dateTimeBook", startDateButton.getText().toString())
+                                    .data("date", endDateButton.getText().toString())
+
                                     .ignoreHttpErrors(true);
                             final Document doc = c.post();
 
                             a.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(a, doc.text(), Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss();
+                                    String result = doc.text();
+                                    boolean success = result.contains("Success") || result.contains("true");
+                                    AlertDialog.Builder dialog = new AlertDialog.Builder(a);
+                                    dialog.setTitle("Booking")
+                                            .setMessage(success ? "The booking is successful!" : result)
+                                            .setPositiveButton(android.R.string.yes, null)
+                                            .show();
                                 }
                             });
                         } catch (IOException e) {

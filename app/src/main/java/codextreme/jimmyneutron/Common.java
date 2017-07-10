@@ -1,5 +1,8 @@
 package codextreme.jimmyneutron;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Path;
 import android.graphics.RectF;
@@ -55,4 +58,5 @@ public class Common {
 
         return region.contains(x, y);
     }
+
 }

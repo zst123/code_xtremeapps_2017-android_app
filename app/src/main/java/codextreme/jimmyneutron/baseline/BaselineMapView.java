@@ -102,7 +102,8 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
                 490, 208,
                 560, 206,
                 560, 171,
-                Color.RED, "TV", "432342"
+                Color.RED, "TV",
+                "432342", "Utility"
         ));
 
         mDesks.add(new DeskHolder(
@@ -110,7 +111,8 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
                 296, 294,
                 392, 273,
                 393, 336,
-                Color.BLUE, "Desk 2", "43545"
+                Color.BLUE, "Desk 2",
+                "43545", "Table"
         ));
     }
 
@@ -244,13 +246,15 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
         int x4;
         int y4;
         String seatId;
+        String seatType;
 
         public DeskHolder(
                 int x1, int y1,
                 int x2, int y2,
                 int x3, int y3,
                 int x4, int y4,
-                int c, String n, String seatId) {
+                int c, String n,
+                String seatId, String seatType) {
             this.x1 = x1;
             this.x2 = x2;
             this.x3 = x3;
@@ -260,6 +264,7 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
             this.y3 = y3;
             this.y4 = y4;
             this.seatId = seatId;
+            this.seatType = seatType;
             color = c;
             name = n;
         }
