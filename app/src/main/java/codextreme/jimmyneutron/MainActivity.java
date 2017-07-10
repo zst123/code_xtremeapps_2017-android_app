@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -81,10 +82,11 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean tryLogin(String user, String pass) {
         if (user.equals("test")) {
+            return true;
+        } else if (!TextUtils.isEmpty(user) && pass.startsWith("pass")){
             try {
                 Thread.sleep(1000);
-            } catch (InterruptedException e) {
-            }
+            } catch (InterruptedException e) {}
             return true;
         } else {
             // TODO online login
