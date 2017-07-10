@@ -8,12 +8,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dd.morphingbutton.MorphingButton;
+import com.github.florent37.materialtextfield.MaterialTextField;
 import com.squareup.picasso.Picasso;
 
 import codextreme.jimmyneutron.baseline.BaselineMapFragment;
@@ -33,6 +35,34 @@ public class MainActivity extends AppCompatActivity {
         final TextView userTV = (TextView) findViewById(android.R.id.text1);
         final TextView passTV = (TextView) findViewById(android.R.id.text2);
         final ProgressBar prog = (ProgressBar) findViewById(R.id.progressBar);
+
+        // Disable focus initially, fixes racing issue
+        userTV.setFocusable(false);
+        passTV.setFocusable(false);
+
+        // Expand material textboxes and prevent it from closing
+        final MaterialTextField materialtextfield1 = (MaterialTextField) findViewById(R.id.materialtextfield1);
+        final MaterialTextField materialtextfield2 = (MaterialTextField) findViewById(R.id.materialtextfield2);
+        materialtextfield1.setOnClickListener(null);
+        materialtextfield2.setOnClickListener(null);
+        materialtextfield1.expand();
+        materialtextfield2.expand();
+
+        // Enable focus after animation, fixes racing issue
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (materialtextfield1.isExpanded() && materialtextfield2.isExpanded()) {
+                    // https://stackoverflow.com/questions/7407851/edittext-setfocusablefalse-cant-be-set-to-true
+                    userTV.setFocusable(true);
+                    userTV.setFocusableInTouchMode(true);
+                    passTV.setFocusable(true);
+                    passTV.setFocusableInTouchMode(true);
+                } else {
+                    new Handler().postDelayed(this, 250);
+                }
+            }
+        }, 250);
 
         // Login stuff
         button.setOnClickListener(new View.OnClickListener() {

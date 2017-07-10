@@ -1,94 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@android:id/background"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
     android:windowSoftInputMode="stateVisible|adjustPan"
-    tools:context="codextreme.jimmyneutron.MainActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:padding="64dp"
-        android:paddingBottom="0dp"
-        app:srcCompat="@drawable/logo_psa" />
+        android:layout_height="match_parent"
+        android:padding="0dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/bg_office_darker"/>
 
-    <com.github.florent37.materialtextfield.MaterialTextField
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginTop="0dp"
-        app:mtf_cardCollapsedHeight="4dp"
-        app:mtf_hasFocus="false"
-        app:mtf_image="@drawable/ic_supervisor_account_black_24dp"
-        app:mtf_openKeyboardOnFocus="true">
 
-        <EditText
-            android:id="@android:id/text1"
+    <LinearLayout
+        android:id="@android:id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F00"
-            android:ems="10"
-            android:hint="@string/main_activity_username"
-            android:minHeight="4dp"
-            android:textColor="@android:color/primary_text_light"
-            android:textColorHint="@android:color/secondary_text_light"
-            android:textSize="16sp" />
+            android:layout_weight="0"
+            android:padding="64dp"
+            android:paddingBottom="0dp"
+            android:scaleType="center"
+            app:srcCompat="@drawable/logo_psa" />
 
-    </com.github.florent37.materialtextfield.MaterialTextField>
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:id="@+id/materialtextfield1"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="0dp"
+            app:mtf_cardCollapsedHeight="4dp"
+            app:mtf_hasFocus="false"
+            app:mtf_openKeyboardOnFocus="false"
+            app:mtf_image="@drawable/ic_supervisor_account_black_24dp">
 
-    <com.github.florent37.materialtextfield.MaterialTextField
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:mtf_cardCollapsedHeight="4dp"
-        app:mtf_hasFocus="false"
-        app:mtf_image="@drawable/ic_book_black_24dp"
-        app:mtf_openKeyboardOnFocus="true">
+            <EditText
+                android:id="@android:id/text1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F00"
+                android:ems="10"
+                android:hint="@string/main_activity_username"
+                android:minHeight="4dp"
+                android:textColor="@android:color/primary_text_light"
+                android:textColorHint="@android:color/secondary_text_light"
+                android:textSize="16sp" />
 
-        <EditText
-            android:id="@android:id/text2"
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:id="@+id/materialtextfield2"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:mtf_cardCollapsedHeight="4dp"
+            app:mtf_hasFocus="false"
+            app:mtf_openKeyboardOnFocus="false"
+            app:mtf_image="@drawable/ic_book_black_24dp">
+
+            <EditText
+                android:id="@android:id/text2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F00"
+                android:ems="10"
+                android:hint="@string/main_activity_password"
+                android:inputType="textPassword"
+                android:minHeight="4dp"
+                android:textColor="@android:color/primary_text_light"
+                android:textColorHint="@android:color/secondary_text_light"
+                android:textSize="16sp" />
+
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F00"
-            android:ems="10"
-            android:hint="@string/main_activity_password"
-            android:inputType="textPassword"
-            android:minHeight="4dp"
-            android:textColor="@android:color/primary_text_light"
-            android:textColorHint="@android:color/secondary_text_light"
-            android:textSize="16sp" />
+            android:layout_weight="0"
+            android:indeterminate="true"
+            android:visibility="invisible" />
 
-    </com.github.florent37.materialtextfield.MaterialTextField>
+        <com.dd.morphingbutton.impl.IndeterminateProgressButton
+            android:id="@+id/button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/main_activity_login"
+            android:textColor="@android:color/primary_text_dark" />
+    </LinearLayout>
 
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:indeterminate="true"
-        android:visibility="invisible" />
-
-    <com.dd.morphingbutton.impl.IndeterminateProgressButton
-        android:id="@+id/button"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/main_activity_login"
-        android:textColor="@android:color/primary_text_dark" />
-</LinearLayout>
+</FrameLayout>
