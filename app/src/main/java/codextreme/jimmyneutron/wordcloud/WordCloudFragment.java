@@ -78,7 +78,10 @@ public class WordCloudFragment extends Fragment {
         String height = Common.px_to_dp(getResources(), container.getHeight()) + "";
         htmlData = htmlData.replace("##WIDTH##", width);
         htmlData = htmlData.replace("##HEIGHT##", height);
-        Toast.makeText(getActivity(), "Width: " + width +"\n Height: " + height, Toast.LENGTH_SHORT).show();
+
+        if (Common.DEBUG) {
+            Toast.makeText(getActivity(), "Width: " + width +"\n Height: " + height, Toast.LENGTH_SHORT).show();
+        }
 
         browser = (WebView) view.findViewById(R.id.webView1);
         browser.getSettings().setLoadsImagesAutomatically(true);

@@ -56,7 +56,7 @@ public class HomeActivity extends MaterialActivity {
         getSupportActionBar().setTitle(R.string.title_activity_home_titlebar);
 
         // Add drawer toggle (hamburger icon)
-        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         createDrawerToggle(mDrawerLayout);
 
         // Init sidebar list view
@@ -69,6 +69,7 @@ public class HomeActivity extends MaterialActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                mDrawerLayout.closeDrawers();
                 Fragment newFragment = null;
                 SidebarListAdapter.SidebarListAdapterItem itemValue =
                         (SidebarListAdapter.SidebarListAdapterItem) listView.getItemAtPosition(position);

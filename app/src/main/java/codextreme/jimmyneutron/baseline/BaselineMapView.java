@@ -61,9 +61,11 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
                             mDeskClickListener.onDeskClick(desk);
                         }
                         invalidate();
-                        Toast.makeText(context,
+                        if (Common.DEBUG) {
+                            Toast.makeText(context,
                                 "Touched: "+desk.name
                                 , Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                 }
