@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -96,6 +97,13 @@ public class WordCloudFragment extends Fragment {
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
             return true;
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            view.startAnimation(AnimationUtils.loadAnimation(getContext(),
+                    R.anim.zoom_in));
+            super.onPageFinished(view, url);
         }
     }
 
