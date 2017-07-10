@@ -3,6 +3,7 @@ package codextreme.jimmyneutron.wordcloud;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -90,6 +91,11 @@ public class WordCloudFragment extends Fragment {
         browser.setWebViewClient(new MyBrowser());
         browser.loadDataWithBaseURL("", htmlData, "text/html", "UTF-8", "");
 
+        // https://stackoverflow.com/a/12039477
+        browser.setBackgroundColor(Color.TRANSPARENT);
+        browser.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
+        browser.setVisibility(View.INVISIBLE);
+
         return view;
     }
 
@@ -113,6 +119,7 @@ public class WordCloudFragment extends Fragment {
         public void onPageFinished(WebView view, String url) {
             view.startAnimation(AnimationUtils.loadAnimation(getContext(),
                     R.anim.zoom_in));
+            view.setVisibility(View.VISIBLE);
             super.onPageFinished(view, url);
         }
     }
