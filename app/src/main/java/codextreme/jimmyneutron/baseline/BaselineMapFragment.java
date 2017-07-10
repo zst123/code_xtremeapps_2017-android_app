@@ -72,7 +72,7 @@ public class BaselineMapFragment extends Fragment {
     }
 
 
-    public void showDialog(Context thiz, BaselineMapView.DeskHolder desk) {
+    public void showDialog(Context thiz, final BaselineMapView.DeskHolder desk) {
         // SweetSheet 控件,根据 rl 确认位置
         SweetSheet mSweetSheet3 = new SweetSheet((FrameLayout) getActivity().getWindow().getDecorView());
         //mSweetSheet3.setBackgroundEffect(new BlurEffect(8));
@@ -85,16 +85,19 @@ public class BaselineMapFragment extends Fragment {
         ((TextView)view.findViewById(android.R.id.text1)).setText(desk.name);
         mSweetSheet3.show();
 
-        view.findViewById(android.R.id.button1).setOnClickListener(v -> {
-            Context darkContext = new ContextThemeWrapper(v.getContext(), R.style.Theme_AppCompat_Light_Dialog);
+        view.findViewById(android.R.id.button1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context darkContext = new ContextThemeWrapper(v.getContext(), R.style.Theme_AppCompat_Light_Dialog);
 
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(darkContext);
-            LayoutInflater inflater = LayoutInflater.from(darkContext);
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(darkContext);
+                LayoutInflater inflater = LayoutInflater.from(darkContext);
 
-            AlertDialog alertDialog = dialogBuilder.create();
-            View dialogView = BaselineBookingDialog.createDialogView(getActivity(), inflater, desk, mUsername, alertDialog);
-            alertDialog.setView(dialogView);
-            alertDialog.show();
+                AlertDialog alertDialog = dialogBuilder.create();
+                View dialogView = BaselineBookingDialog.createDialogView(BaselineMapFragment.this.getActivity(), inflater, desk, mUsername, alertDialog);
+                alertDialog.setView(dialogView);
+                alertDialog.show();
+            }
         });
     }
 

@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -57,37 +58,40 @@ public class HomeActivity extends MaterialActivity {
         createDrawerToggle(mDrawerLayout);
 
         // Init sidebar list view
-        ListView listView = (ListView) findViewById(R.id.sidebar_listview);
+        final ListView listView = (ListView) findViewById(R.id.sidebar_listview);
         SidebarListAdapter adapter = new SidebarListAdapter(this)
                 .add("Office View", R.drawable.ic_desktop_mac_black_24dp)
                 .add("Booking", R.drawable.ic_book_black_24dp)
                 .add("Word Cloud", R.drawable.ic_cloud_black_24dp);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener((adapterView, view, position, id) -> {
-            Fragment newFragment = null;
-            SidebarListAdapter.SidebarListAdapterItem itemValue =
-                    (SidebarListAdapter.SidebarListAdapterItem) listView.getItemAtPosition(position);
-            switch (itemValue.text) {
-                case "Office View":
-                    newFragment = fragmentOfficeView;
-                    break;
-                case "Booking":
-                    break;
-                case "Word Cloud":
-                    newFragment = fragmentWordCloud;
-                    break;
-                default:
-                    break;
-            }
-            if (newFragment != null) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, newFragment);
-                // transaction.addToBackStack(null); // Back button to previous fragment
-                transaction.commit();
-            } else {
-                Toast.makeText(getApplicationContext(),
-                        "Position :" + position + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
-                        .show();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Fragment newFragment = null;
+                SidebarListAdapter.SidebarListAdapterItem itemValue =
+                        (SidebarListAdapter.SidebarListAdapterItem) listView.getItemAtPosition(position);
+                switch (itemValue.text) {
+                    case "Office View":
+                        newFragment = fragmentOfficeView;
+                        break;
+                    case "Booking":
+                        break;
+                    case "Word Cloud":
+                        newFragment = fragmentWordCloud;
+                        break;
+                    default:
+                        break;
+                }
+                if (newFragment != null) {
+                    FragmentTransaction transaction = HomeActivity.this.getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragment_container, newFragment);
+                    // transaction.addToBackStack(null); // Back button to previous fragment
+                    transaction.commit();
+                } else {
+                    Toast.makeText(HomeActivity.this.getApplicationContext(),
+                            "Position :" + position + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
+                            .show();
+                }
             }
         });
 

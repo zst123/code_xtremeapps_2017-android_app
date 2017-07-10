@@ -30,7 +30,9 @@ import static codextreme.jimmyneutron.Common.urlEncode;
 
 public class BaselineBookingDialog {
 
-    public static View createDialogView(Activity a, LayoutInflater inflater, BaselineMapView.DeskHolder desk, String username, AlertDialog dialog) {
+    public static View createDialogView(final Activity a, final LayoutInflater inflater,
+                                        final BaselineMapView.DeskHolder desk,
+                                        final String username, final AlertDialog dialog) {
 
         View dialogView = inflater.inflate(R.layout.dialog_baseline_booking, null);
         final TextView titleView = (TextView) dialogView.findViewById(R.id.titleBooking);
@@ -62,32 +64,54 @@ public class BaselineBookingDialog {
 
 
 
-        startTimeButton.setOnClickListener(v -> {
-            showTimePicker(a, "Start Timing", (view, hourOfDay, minute, second) -> startTimeButton.setText(hourOfDay+":00"));
-        });
-
-        endTimeButton.setOnClickListener(v -> {
-            showTimePicker(a, "End Timing", (view, hourOfDay, minute, second) -> endTimeButton.setText(hourOfDay+":00"));
-        });
-
-        startDateButton.setOnClickListener(v -> {
-            showDatePicker(a, "Start Date", new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePickerDialog view, int yy, int mm, int dd) {
-                            startDateButton.setText( String.format("%d-%d-%d", dd, mm, yy) );
-                        }
+        startTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePicker(a, "Start Timing", new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+                        startTimeButton.setText(hourOfDay + ":00");
                     }
-            );
+                });
+            }
         });
 
-        endDateButton.setOnClickListener(v -> {
-            showDatePicker(a, "End Date", new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePickerDialog view, int yy, int mm, int dd) {
-                            endDateButton.setText( String.format("%d-%d-%d", dd, mm, yy) );
-                        }
+        endTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePicker(a, "End Timing", new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+                        endTimeButton.setText(hourOfDay + ":00");
                     }
-            );
+                });
+            }
+        });
+
+        startDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker(a, "Start Date", new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePickerDialog view, int yy, int mm, int dd) {
+                                startDateButton.setText(String.format("%d-%d-%d", dd, mm, yy));
+                            }
+                        }
+                );
+            }
+        });
+
+        endDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker(a, "End Date", new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePickerDialog view, int yy, int mm, int dd) {
+                                endDateButton.setText(String.format("%d-%d-%d", dd, mm, yy));
+                            }
+                        }
+                );
+            }
         });
 
         /*
@@ -100,13 +124,15 @@ public class BaselineBookingDialog {
             lunchEndTime:
             lunchStatus:
         */
-        dialogView.findViewById(R.id.submitButton).setOnClickListener(v -> {
-            Toast.makeText(a, "Hi", Toast.LENGTH_SHORT).show();
+        dialogView.findViewById(R.id.submitButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(a, "Hi", Toast.LENGTH_SHORT).show();
 
-            new Thread() {
-                @Override
-                public void run() {
-                    try {
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
                         /*
                          +
                                 "?bookingId=" + urlEncode("This should be done by the server") +
@@ -118,28 +144,32 @@ public class BaselineBookingDialog {
                                 "&lunchEndTime=" + urlEncode("ditto") +
                                 "&lunchStatus=" + urlEncode("I don't know the status now"
                          */
-                        Connection c = Jsoup.connect(Common.URL_BOOKING)
-                                .data("bookingId", "This should be done by the server")
-                                .data("username", username)
-                                .data("seatId", desk.seatId)
-                                .data("startTime", "starting")
-                                .data("endTime", "ending")
-                                .data("lunchStartTime", "I can change my mind when I have lunch")
-                                .data("lunchEndTime", "ditto")
-                                .data("lunchStatus", "I don't know the status now")
-                                .ignoreHttpErrors(true);
-                        Document doc = c.post();
+                            Connection c = Jsoup.connect(Common.URL_BOOKING)
+                                    .data("bookingId", "This should be done by the server")
+                                    .data("username", username)
+                                    .data("seatId", desk.seatId)
+                                    .data("startTime", "starting")
+                                    .data("endTime", "ending")
+                                    .data("lunchStartTime", "I can change my mind when I have lunch")
+                                    .data("lunchEndTime", "ditto")
+                                    .data("lunchStatus", "I don't know the status now")
+                                    .ignoreHttpErrors(true);
+                            final Document doc = c.post();
 
-                        a.runOnUiThread(() -> {
-                            Toast.makeText(a, doc.text(), Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                        });
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                            a.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(a, doc.text(), Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                }
+                            });
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
-            }.start();
-        } );
+                }.start();
+            }
+        });
 
         return dialogView;
     }

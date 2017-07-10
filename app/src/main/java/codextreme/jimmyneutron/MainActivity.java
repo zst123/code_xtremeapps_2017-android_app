@@ -34,37 +34,48 @@ public class MainActivity extends AppCompatActivity {
         final ProgressBar prog = (ProgressBar) findViewById(R.id.progressBar);
 
         // Login stuff
-        button.setOnClickListener(view -> {
-            String user = userTV.getText().toString();
-            String pass = passTV.getText().toString();
-            prog.setVisibility(View.VISIBLE);
-            button.setEnabled(false);
-            new Thread() {
-                public void run() {
-                    if (tryLogin(user, pass)) {
-                        runOnUiThread(() -> {
-                            morphToSuccess(button);
-                            new Handler().postDelayed(() -> {
-                                Intent i = new Intent(MainActivity.this, HomeActivity.class);
-                                startActivity(i);
-                                BaselineMapFragment.mUsername = user;
-                                //Bundle args = new Bundle();
-                                //args.putString(BUNDLE_USER, user);
-                                //startActivity(i, args);
-                                prog.setVisibility(View.INVISIBLE);
-                                button.setEnabled(true);
-                            }, 500);
-
-                        });
-                    } else {
-                        runOnUiThread(() -> {
-                            morphToFailure(button);
-                            prog.setVisibility(View.INVISIBLE);
-                            button.setEnabled(true);
-                        });
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String user = userTV.getText().toString();
+                final String pass = passTV.getText().toString();
+                prog.setVisibility(View.VISIBLE);
+                button.setEnabled(false);
+                new Thread() {
+                    public void run() {
+                        if (tryLogin(user, pass)) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    morphToSuccess(button);
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Intent i = new Intent(MainActivity.this, HomeActivity.class);
+                                            startActivity(i);
+                                            BaselineMapFragment.mUsername = user;
+                                            //Bundle args = new Bundle();
+                                            //args.putString(BUNDLE_USER, user);
+                                            //startActivity(i, args);
+                                            prog.setVisibility(View.INVISIBLE);
+                                            button.setEnabled(true);
+                                        }
+                                    }, 500);
+                                }
+                            });
+                        } else {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    morphToFailure(button);
+                                    prog.setVisibility(View.INVISIBLE);
+                                    button.setEnabled(true);
+                                }
+                            });
+                        }
                     }
-                }
-            }.start();
+                }.start();
+            }
         });
     }
 
