@@ -17,6 +17,8 @@ public class Common {
     public static final String USER_AGENT = "Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30";
     //"Code Xtreme Jimmy Neutron App";
 
+    public static String mUsername;
+
     public static String urlEncode(String in) {
         try {
             return URLEncoder.encode(in, "utf-8");

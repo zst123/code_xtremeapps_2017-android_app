@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -52,6 +53,7 @@ public class HomeActivity extends MaterialActivity {
         // Set a toolbar to replace the action bar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.title_activity_home_titlebar);
 
         // Add drawer toggle (hamburger icon)
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -94,6 +96,13 @@ public class HomeActivity extends MaterialActivity {
                 }
             }
         });
+        // init sidebar username
+        final TextView tv_user = (TextView) findViewById(R.id.username);
+        final TextView tv_email = (TextView) findViewById(R.id.email);
+        tv_user.setText(
+                "Hello, " + Common.mUsername + "!"
+        );
+        tv_email.setText("");
 
         initFragments();
 

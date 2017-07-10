@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                                         public void run() {
                                             Intent i = new Intent(MainActivity.this, HomeActivity.class);
                                             startActivity(i);
-                                            BaselineMapFragment.mUsername = user;
+                                            Common.mUsername = user;
                                             //Bundle args = new Bundle();
                                             //args.putString(BUNDLE_USER, user);
                                             //startActivity(i, args);

@@ -33,8 +33,6 @@ public class BaselineMapFragment extends Fragment {
     private BaselineMapView imageView;
     private LinearLayout linearLayout;
 
-    public static String mUsername;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -94,7 +92,9 @@ public class BaselineMapFragment extends Fragment {
                 LayoutInflater inflater = LayoutInflater.from(darkContext);
 
                 AlertDialog alertDialog = dialogBuilder.create();
-                View dialogView = BaselineBookingDialog.createDialogView(BaselineMapFragment.this.getActivity(), inflater, desk, mUsername, alertDialog);
+                View dialogView = BaselineBookingDialog.createDialogView(
+                        BaselineMapFragment.this.getActivity(),
+                        inflater, desk, Common.mUsername, alertDialog);
                 alertDialog.setView(dialogView);
                 alertDialog.show();
             }
