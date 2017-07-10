@@ -34,6 +34,10 @@ public class Common {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
     }
 
+    public static float px_to_dp(Resources r, float px) {
+        return px / dp_to_px(r, 1);
+    }
+
     /**
      * Change the alpha of the given color.
      */

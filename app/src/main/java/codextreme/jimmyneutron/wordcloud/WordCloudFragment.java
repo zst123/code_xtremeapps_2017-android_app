@@ -14,6 +14,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import codextreme.jimmyneutron.Common;
 import codextreme.jimmyneutron.R;
 
 /*
@@ -72,6 +73,12 @@ public class WordCloudFragment extends Fragment {
         String htmlData = AssetReader.read(getActivity(), "template.html");
         htmlData = htmlData.replace("##WORDS##", wordJsArray);
         htmlData = htmlData.replace("##COUNT##", (strArr.length - 1) + "");
+
+        String width = Common.px_to_dp(getResources(), container.getWidth()) + "";
+        String height = Common.px_to_dp(getResources(), container.getHeight()) + "";
+        htmlData = htmlData.replace("##WIDTH##", width);
+        htmlData = htmlData.replace("##HEIGHT##", height);
+        Toast.makeText(getActivity(), "Width: " + width +"\n Height: " + height, Toast.LENGTH_SHORT).show();
 
         browser = (WebView) view.findViewById(R.id.webView1);
         browser.getSettings().setLoadsImagesAutomatically(true);

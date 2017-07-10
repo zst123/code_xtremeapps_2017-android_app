@@ -22,23 +22,9 @@
 
 <script>
 
-var height = 400;
-var width = 400;
-if(window.devicePixelRatio==1.5){
-    height = 460;
-    width=screen.width/4;
-}
-if(window.devicePixelRatio==1.0){
-    height = 300;
-    width=screen.width/4;
-}
-if(window.devicePixelRatio==0.75){
-    height = 230;
-    width=screen.width/4;
-}
+var height = ##HEIGHT##;
+var width = ##WIDTH##;
 
-height = 480;
-width=300;
 </script>
 <script>
 
@@ -47,7 +33,7 @@ width=300;
   var myWords = ##WORDS##;
   var tmax = myWords[0][1];
   var tmin = myWords[##COUNT##][1];
-  d3.layout.cloud().size([300,480])
+  d3.layout.cloud().size([##WIDTH##,##HEIGHT##])
       .words(myWords.map(function(d) {
         return {text: d[0], size: 22 + ##COUNT##*(d[1]-tmin)/(tmax-tmin)};
       }))
