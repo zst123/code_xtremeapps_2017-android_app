@@ -3,6 +3,7 @@ package codextreme.jimmyneutron.baseline;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.ContextThemeWrapper;
@@ -65,6 +66,15 @@ public class BaselineMapFragment extends Fragment {
                 showDialog(getActivity(), desk);
             }
         });
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Thread() {
+            @Override
+            public void run() {
+                imageView.randomiseColors();
+                handler.postDelayed(this, 1500);
+            }
+        }, 1500);
 
         return view;
     }
