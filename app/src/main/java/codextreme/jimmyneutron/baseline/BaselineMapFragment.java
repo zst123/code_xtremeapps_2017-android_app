@@ -72,12 +72,13 @@ public class BaselineMapFragment extends Fragment {
             @Override
             public void run() {
                 imageView.randomiseColors();
-                handler.postDelayed(this, 1500);
+                handler.postDelayed(this, 5000);
             }
-        }, 1500);
+        }, 5000);
 
         return view;
     }
+
 
 
     public void showDialog(Context thiz, final BaselineMapView.DeskHolder desk) {
