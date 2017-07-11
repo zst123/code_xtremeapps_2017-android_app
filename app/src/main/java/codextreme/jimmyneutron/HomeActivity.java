@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso;
 import codextreme.jimmyneutron.baseline.BaselineMapFragment;
 import codextreme.jimmyneutron.interfaces.MaterialActivity;
 import codextreme.jimmyneutron.sidebar.SidebarListAdapter;
+import codextreme.jimmyneutron.tradbooking.CheckBookingFragment;
 import codextreme.jimmyneutron.wordcloud.WordCloudFragment;
 
 import static codextreme.jimmyneutron.baseline.BaselineMapFragment.BUNDLE_URL;
@@ -33,8 +34,13 @@ public class HomeActivity extends MaterialActivity {
 
     BaselineMapFragment fragmentOfficeView;
     WordCloudFragment fragmentWordCloud;
+    CheckBookingFragment fragmentBooking;
 
     public void initFragments() {
+        if (fragmentBooking == null) {
+            fragmentBooking = new CheckBookingFragment();
+        }
+
         if (fragmentOfficeView == null) {
             fragmentOfficeView = new BaselineMapFragment();
             Bundle args = new Bundle();
@@ -88,6 +94,7 @@ public class HomeActivity extends MaterialActivity {
                         newFragment = fragmentOfficeView;
                         break;
                     case "Booking":
+                        newFragment = fragmentBooking;
                         break;
                     case "Word Cloud":
                         newFragment = fragmentWordCloud;
