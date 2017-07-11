@@ -109,13 +109,50 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
         ));
 
         mDesks.add(new DeskHolder(
+                282, 296,
+                280, 396,
+                117, 455,
+                118, 331,
+                Color.RED, "Desk 1",
+                "43546", "Table"
+        ));
+
+        mDesks.add(new DeskHolder(
                 296, 384,
                 296, 294,
                 392, 273,
                 393, 336,
-                Color.BLUE, "Desk 2",
+                Color.GREEN, "Desk 2",
                 "43545", "Table"
         ));
+
+        mDesks.add(new DeskHolder(
+                394, 273,
+                393, 333,
+                446, 311,
+                446, 261,
+                Color.RED, "Desk 3",
+                "43546", "Table"
+        ));
+
+        mDesks.add(new DeskHolder(
+                655, 316,
+                523, 288,
+                561, 251,
+                634, 263,
+                Color.RED, "Desk 4",
+                "43546", "Table"
+        ));
+
+        mDesks.add(new DeskHolder(
+                674, 337,
+                715, 436,
+                404, 380,
+                497, 318,
+                Color.RED, "Desk 5",
+                "43546", "Table"
+        ));
+
     }
 
     @Override
