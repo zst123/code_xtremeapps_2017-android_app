@@ -35,8 +35,12 @@ public class WordCloudFragment extends Fragment {
 
 
         String[] strArr = (
-                "Contrary to popular belief, Lorem Ipsum is not simply random text. " +
-                "It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old."
+                "Programming application development Project management Help desk technical support" +
+                        " Security compliance governance Web development Database administration Business" +
+                        " intelligence analytics Accounting Banking/Brokerage Cross-Functional Desktop Graphics" +
+                        " Desktop Publishing Electronic Mail Help Desk Insurance Integrated PC Apps Legal Manufacturing" +
+                        " Online Services Payroll/Personnel PC Communications Presentation Report Writing Scheduling/Planning" +
+                        " Screen Grabbers Security Spreadsheets Miscellaneous Apps"
         ).split(" ");
         String wordJsArray = "[";
         for (int i = 0; i < strArr.length; i++) {
