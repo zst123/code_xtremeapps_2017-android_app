@@ -1,4 +1,4 @@
-package codextreme.jimmyneutron.wordcloud;
+package codextreme.jimmyneutron.helpers;
 
 import android.content.Context;
 import android.content.res.AssetManager;

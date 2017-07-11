@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import codextreme.jimmyneutron.Common;
 import codextreme.jimmyneutron.R;
+import codextreme.jimmyneutron.helpers.AssetReader;
 
 /*
 https://github.com/prateek27/android-word-cloud
