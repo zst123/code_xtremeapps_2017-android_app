@@ -34,51 +34,15 @@ public class WordCloudFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wordcloud, container, false);
 
-
-        String[] strArr = (
-                "Programming application development Project management Help desk technical support" +
-                        " Security compliance governance Web development Database administration Business" +
-                        " intelligence analytics Accounting Banking/Brokerage Cross-Functional Desktop Graphics" +
-                        " Desktop Publishing Electronic Mail Help Desk Insurance Integrated PC Apps Legal Manufacturing" +
-                        " Online Services Payroll/Personnel PC Communications Presentation Report Writing Scheduling/Planning" +
-                        " Screen Grabbers Security Spreadsheets Miscellaneous Apps"
-        ).split(" ");
-        String wordJsArray = "[";
-        for (int i = 0; i < strArr.length; i++) {
-            String eachStr = strArr[i];
-            int priority = 2;
-            if (i == 0) {
-                priority = 20;
-            } else if (i == 1) {
-                priority = 15;
-            } else if (i <= 5) {
-                priority = 10;
-            } else if (i <= 10) {
-                priority = 8;
-            } else if (i <= 12) {
-                priority = 7;
-            } else if (i <= 15) {
-                priority = 6;
-            } else if (i <= 20) {
-                priority = 5;
-            } else if (i <= 30) {
-                priority = 3;
-            }
-            wordJsArray += "[`" + eachStr + "`, " + priority + "]";
-            if (i < strArr.length-1) {
-                wordJsArray += ", ";
-            }
-        }
-
-        wordJsArray += "]";
-        wordJsArray = wordJsArray.replace ("`", "\"");
+        WordCloudTextCreator cloud = new WordCloudTextCreator("manzel", "ibrahim");
+        String wordJsArray = cloud.getCloud();
 
         Log.d("ZST123", "wordJsArray");
         Log.d("ZST123", wordJsArray);
 
         String htmlData = AssetReader.read(getActivity(), "template.html");
         htmlData = htmlData.replace("##WORDS##", wordJsArray);
-        htmlData = htmlData.replace("##COUNT##", (strArr.length - 1) + "");
+        htmlData = htmlData.replace("##COUNT##", (cloud.getSize() - 1) + "");
 
         String width = Common.px_to_dp(getResources(), container.getWidth()) + "";
         String height = Common.px_to_dp(getResources(), container.getHeight()) + "";
