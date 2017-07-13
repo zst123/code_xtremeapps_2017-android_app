@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:padding="16dp">
 
     <TextView
@@ -13,21 +13,17 @@
         android:textSize="24sp"
         android:textColor="#000"
         android:layout_margin="0sp"/>
-    <TextView
-        android:id="@android:id/text2"
-        android:layout_below="@android:id/text1"
+
+    <WebView
+        android:layout_below="@android:id/button1"
+        android:id="@+id/webView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Description of desk"
-        android:gravity="left"
-        android:textSize="18sp"
-        android:textColor="#000"
-        android:layout_margin="8sp"/>
+        android:layout_height="match_parent">
+    </WebView>
 
     <Button
         android:id="@android:id/button1"
-        android:layout_below="@android:id/text2"
-
+        android:layout_below="@android:id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Book"

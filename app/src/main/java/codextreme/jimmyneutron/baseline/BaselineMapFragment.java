@@ -10,6 +10,7 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -25,6 +26,7 @@ import codextreme.jimmyneutron.Common;
 import codextreme.jimmyneutron.R;
 
 import static codextreme.jimmyneutron.Common.percent_of_in_range;
+import static codextreme.jimmyneutron.wordcloud.WordCloudFragment.attachWordCloudToBrowser;
 
 // http://www.vogella.com/tutorials/AndroidFragments/article.html
 // https://developer.android.com/training/basics/fragments/fragment-ui.html
@@ -83,13 +85,17 @@ public class BaselineMapFragment extends Fragment {
 
     public void showDialog(Context thiz, final BaselineMapView.DeskHolder desk) {
         // SweetSheet 控件,根据 rl 确认位置
-        SweetSheet mSweetSheet3 = new SweetSheet((FrameLayout) getActivity().getWindow().getDecorView());
+        FrameLayout frame = (FrameLayout) getActivity().getWindow().getDecorView();
+        SweetSheet mSweetSheet3 = new SweetSheet(frame);
         //mSweetSheet3.setBackgroundEffect(new BlurEffect(8));
         View view = LayoutInflater.from(thiz).inflate(R.layout.dialog_baseline_popup, null, false);
         //定义一个 CustomDelegate 的 Delegate ,并且设置它的出现动画.
         CustomDelegate customDelegate = new CustomDelegate(true,
                 CustomDelegate.AnimationType.AlphaAnimation);
         customDelegate.setCustomView(view);
+
+        int contentHeight = (int) (frame.getHeight() * 0.75);
+        customDelegate.setContentHeight(contentHeight);
         mSweetSheet3.setDelegate(customDelegate);
         ((TextView)view.findViewById(android.R.id.text1)).setText(desk.name);
         mSweetSheet3.show();
@@ -110,6 +116,9 @@ public class BaselineMapFragment extends Fragment {
                 alertDialog.show();
             }
         });
+        WebView browser = (WebView) view.findViewById(R.id.webView2);
+        attachWordCloudToBrowser(browser, (int) (frame.getWidth() * 0.9),
+                (int) (contentHeight * 0.75), "manzel", "ibrahim");
     }
 
 

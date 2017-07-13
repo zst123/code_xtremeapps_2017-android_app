@@ -35,7 +35,8 @@ public class WordCloudFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wordcloud, container, false);
         browser = (WebView) view.findViewById(R.id.webView1);
-        attachWordCloudToBrowser(browser, container, "manzel", "ibrahim");
+        attachWordCloudToBrowser(browser, container.getWidth(),
+                container.getHeight(), "manzel", "ibrahim");
         return view;
     }
 
@@ -47,7 +48,7 @@ public class WordCloudFragment extends Fragment {
         }
     }
 
-    public static void attachWordCloudToBrowser(WebView browser, ViewGroup container, String user1, String user2) {
+    public static void attachWordCloudToBrowser(WebView browser, int widthPx, int heightPx, String user1, String user2) {
         WordCloudTextCreator cloud = new WordCloudTextCreator(user1, user2);
         String wordJsArray = cloud.getCloud();
 
@@ -60,8 +61,8 @@ public class WordCloudFragment extends Fragment {
         htmlData = htmlData.replace("##COUNT##", (cloud.getSize() - 1) + "");
 
         Resources res = c.getResources();
-        String width = Common.px_to_dp(res, container.getWidth()) + "";
-        String height = Common.px_to_dp(res, container.getHeight()) + "";
+        String width = Common.px_to_dp(res, widthPx) + "";
+        String height = Common.px_to_dp(res, heightPx) + "";
         htmlData = htmlData.replace("##WIDTH##", width);
         htmlData = htmlData.replace("##HEIGHT##", height);
 
