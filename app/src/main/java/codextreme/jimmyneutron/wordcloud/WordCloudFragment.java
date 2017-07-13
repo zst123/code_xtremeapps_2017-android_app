@@ -3,6 +3,7 @@ package codextreme.jimmyneutron.wordcloud;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,38 +34,8 @@ public class WordCloudFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wordcloud, container, false);
-
-        WordCloudTextCreator cloud = new WordCloudTextCreator("manzel", "ibrahim");
-        String wordJsArray = cloud.getCloud();
-
-        Log.d("ZST123", "wordJsArray");
-        Log.d("ZST123", wordJsArray);
-
-        String htmlData = AssetReader.read(getActivity(), "template.html");
-        htmlData = htmlData.replace("##WORDS##", wordJsArray);
-        htmlData = htmlData.replace("##COUNT##", (cloud.getSize() - 1) + "");
-
-        String width = Common.px_to_dp(getResources(), container.getWidth()) + "";
-        String height = Common.px_to_dp(getResources(), container.getHeight()) + "";
-        htmlData = htmlData.replace("##WIDTH##", width);
-        htmlData = htmlData.replace("##HEIGHT##", height);
-
-        if (Common.DEBUG) {
-            Toast.makeText(getActivity(), "Width: " + width +"\n Height: " + height, Toast.LENGTH_SHORT).show();
-        }
-
         browser = (WebView) view.findViewById(R.id.webView1);
-        browser.getSettings().setLoadsImagesAutomatically(true);
-        browser.getSettings().setJavaScriptEnabled(true);
-        browser.addJavascriptInterface(new JSInterface(getActivity()), "Hello");
-        browser.setWebViewClient(new MyBrowser());
-        browser.loadDataWithBaseURL("", htmlData, "text/html", "UTF-8", "");
-
-        // https://stackoverflow.com/a/12039477
-        browser.setBackgroundColor(Color.TRANSPARENT);
-        browser.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
-        browser.setVisibility(View.INVISIBLE);
-
+        attachWordCloudToBrowser(browser, container, "manzel", "ibrahim");
         return view;
     }
 
@@ -76,8 +47,41 @@ public class WordCloudFragment extends Fragment {
         }
     }
 
+    public static void attachWordCloudToBrowser(WebView browser, ViewGroup container, String user1, String user2) {
+        WordCloudTextCreator cloud = new WordCloudTextCreator(user1, user2);
+        String wordJsArray = cloud.getCloud();
 
-    private class MyBrowser extends WebViewClient {
+        Log.d("ZST123", "wordJsArray");
+        Log.d("ZST123", wordJsArray);
+
+        Context c = browser.getContext();
+        String htmlData = AssetReader.read(c, "template.html");
+        htmlData = htmlData.replace("##WORDS##", wordJsArray);
+        htmlData = htmlData.replace("##COUNT##", (cloud.getSize() - 1) + "");
+
+        Resources res = c.getResources();
+        String width = Common.px_to_dp(res, container.getWidth()) + "";
+        String height = Common.px_to_dp(res, container.getHeight()) + "";
+        htmlData = htmlData.replace("##WIDTH##", width);
+        htmlData = htmlData.replace("##HEIGHT##", height);
+
+        if (Common.DEBUG) {
+            Toast.makeText(browser.getContext(), "Width: " + width +"\n Height: " + height, Toast.LENGTH_SHORT).show();
+        }
+
+        browser.getSettings().setLoadsImagesAutomatically(true);
+        browser.getSettings().setJavaScriptEnabled(true);
+        browser.addJavascriptInterface(new JSInterface(c), "Hello");
+        browser.setWebViewClient(new MyBrowser());
+        browser.loadDataWithBaseURL("", htmlData, "text/html", "UTF-8", "");
+
+        // https://stackoverflow.com/a/12039477
+        browser.setBackgroundColor(Color.TRANSPARENT);
+        browser.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
+        browser.setVisibility(View.INVISIBLE);
+    }
+
+    private static class MyBrowser extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
@@ -86,14 +90,14 @@ public class WordCloudFragment extends Fragment {
 
         @Override
         public void onPageFinished(WebView view, String url) {
-            view.startAnimation(AnimationUtils.loadAnimation(getContext(),
+            view.startAnimation(AnimationUtils.loadAnimation(view.getContext(),
                     R.anim.zoom_in));
             view.setVisibility(View.VISIBLE);
             super.onPageFinished(view, url);
         }
     }
 
-    private class JSInterface {
+    private static class JSInterface {
         Context context;
         JSInterface(Context x) {
             context = x;
