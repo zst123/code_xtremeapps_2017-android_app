@@ -36,7 +36,7 @@ public class WordCloudFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_wordcloud, container, false);
         browser = (WebView) view.findViewById(R.id.webView1);
         attachWordCloudToBrowser(browser, container.getWidth(),
-                container.getHeight(), "manzel", "ibrahim");
+                container.getHeight(), "0");
         return view;
     }
 
@@ -48,8 +48,8 @@ public class WordCloudFragment extends Fragment {
         }
     }
 
-    public static void attachWordCloudToBrowser(WebView browser, int widthPx, int heightPx, String user1, String user2) {
-        WordCloudTextCreator cloud = new WordCloudTextCreator(user1, user2);
+    public static void attachWordCloudToBrowser(WebView browser, int widthPx, int heightPx, String tableId) {
+        WordCloudTextCreator cloud = new WordCloudTextCreator(tableId);
         String wordJsArray = cloud.getCloud();
 
         Log.d("ZST123", "wordJsArray");

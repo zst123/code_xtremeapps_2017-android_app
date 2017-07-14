@@ -129,7 +129,7 @@ public class BaselineMapFragment extends Fragment {
         });
         WebView browser = (WebView) view.findViewById(R.id.webView2);
         attachWordCloudToBrowser(browser, (int) (frame.getWidth() * 0.9),
-                (int) (contentHeight * 0.75), "manzel", "ibrahim");
+                (int) (contentHeight * 0.75), "0");
     }
 
 
