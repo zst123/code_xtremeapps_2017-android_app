@@ -1,5 +1,6 @@
 package codextreme.jimmyneutron.baseline;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -42,6 +43,7 @@ public class BaselineMapFragment extends Fragment {
     public static final String BUNDLE_BASE64_IMG = "url_base64";
     public static final String BUNDLE_URL = "url";
     public static final String BUNDLE_USER = "user";
+    public static final String BUNDLE_TITLE = "title";
     private BaselineMapView imageView;
     private LinearLayout linearLayout;
 
@@ -159,21 +161,30 @@ public class BaselineMapFragment extends Fragment {
                         try {
                             Document doc = Jsoup.connect(link_for_b64).get();
                             final String result = doc.text();
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    // Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
-                                    byte[] decodedString = Base64.decode(result, Base64.DEFAULT);
-                                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                                    imageView.setImageBitmap(decodedByte);
-                                }
-                            });
-
+                            Activity thiz = getActivity();
+                            if (thiz != null) {
+                                thiz.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
+                                        byte[] decodedString = Base64.decode(result, Base64.DEFAULT);
+                                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                                        imageView.setImageBitmap(decodedByte);
+                                    }
+                                });
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
                 }.start();
+            }
+
+            String title = bundle.getString(BUNDLE_TITLE);
+            if (!TextUtils.isEmpty(title)) {
+                TextView titleBaseline = (TextView) getView().findViewById(R.id.titleBaseline);
+                titleBaseline.setVisibility(View.VISIBLE);
+                titleBaseline.setText(title);
             }
 
             //mUsername = bundle.getString(BUNDLE_USER);

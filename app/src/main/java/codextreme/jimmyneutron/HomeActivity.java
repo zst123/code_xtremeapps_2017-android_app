@@ -53,6 +53,14 @@ public class HomeActivity extends MaterialActivity {
             fragmentWordCloud = new WordCloudFragment();
         }
     }
+
+    public void changeFragment(Fragment newFragment, boolean backStack) {
+        FragmentTransaction transaction = HomeActivity.this.getFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, newFragment);
+        if (backStack)
+            transaction.addToBackStack(null); // Back button to previous fragment
+        transaction.commit();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,10 +112,7 @@ public class HomeActivity extends MaterialActivity {
                         break;
                 }
                 if (newFragment != null) {
-                    FragmentTransaction transaction = HomeActivity.this.getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.fragment_container, newFragment);
-                    // transaction.addToBackStack(null); // Back button to previous fragment
-                    transaction.commit();
+                    changeFragment(newFragment, false);
                 } else {
                     Toast.makeText(HomeActivity.this.getApplicationContext(),
                             "Position :" + position + "  ListItem : " + itemValue, Toast.LENGTH_LONG)

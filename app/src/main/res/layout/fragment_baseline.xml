@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+
     <HorizontalScrollView
         android:id="@+id/fragment_baseline"
         android:layout_width="match_parent"
@@ -20,6 +22,17 @@
             android:scaleType="fitXY" />
     </HorizontalScrollView>
 
+    <TextView
+        android:id="@+id/titleBaseline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="16dp"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:textSize="24sp" />
 
     <SeekBar
         android:id="@android:id/secondaryProgress"

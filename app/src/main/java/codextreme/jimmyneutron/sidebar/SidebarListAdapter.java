@@ -47,6 +47,10 @@ public class SidebarListAdapter extends BaseAdapter {
         return mListEntries.size();
     }
 
+    public List<SidebarListAdapterItem> getItems() {
+        return mListEntries;
+    }
+
     @Override
     public SidebarListAdapterItem getItem(int position) {
         try {
