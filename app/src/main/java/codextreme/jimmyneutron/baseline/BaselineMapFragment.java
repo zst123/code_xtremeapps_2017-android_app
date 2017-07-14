@@ -311,12 +311,14 @@ public class BaselineMapFragment extends Fragment {
                                             }
                                         }
                                     }
-                                    getActivity().runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            imageView.invalidate();
-                                        }
-                                    });
+                                    if (isVisible()) {
+                                        getActivity().runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageView.invalidate();
+                                            }
+                                        });
+                                    }
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
