@@ -18,6 +18,7 @@ import java.util.Random;
 
 import codextreme.jimmyneutron.Common;
 
+@SuppressLint("AppCompatCustomView")
 public class BaselineMapView extends ImageView implements View.OnTouchListener {
 
     DeskClickListener mDeskClickListener;

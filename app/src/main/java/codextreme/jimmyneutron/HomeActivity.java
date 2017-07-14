@@ -29,8 +29,7 @@ import static codextreme.jimmyneutron.baseline.BaselineMapFragment.BUNDLE_USER;
 
 public class HomeActivity extends MaterialActivity {
 
-    public static final String URL_TEST =
-            "https://assets.entrepreneur.com/content/16x9/822/20160118164234-interior-modern-office-desks-space-computers.jpeg";
+    public static final String URL_TEST = Common.URL_BASELINE;
 
     BaselineMapFragment fragmentOfficeView;
     WordCloudFragment fragmentWordCloud;
