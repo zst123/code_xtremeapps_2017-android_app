@@ -225,6 +225,7 @@ public class BaselineMapFragment extends Fragment {
                                                 "Table " + table
                                         ));
                                     }
+                                    imageView.requestLayout();
                                 }
                             });
                         } catch (IOException e) {
