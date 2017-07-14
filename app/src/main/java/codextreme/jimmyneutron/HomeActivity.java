@@ -66,7 +66,8 @@ public class HomeActivity extends MaterialActivity {
 
     public void changeFragment(Fragment newFragment, boolean backStack) {
         FragmentTransaction transaction = HomeActivity.this.getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, newFragment);
+        transaction.remove(getFragmentManager().findFragmentById(R.id.fragment_container));
+        transaction.add(R.id.fragment_container, newFragment);
         if (backStack)
             transaction.addToBackStack(null); // Back button to previous fragment
         transaction.commit();

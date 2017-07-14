@@ -267,11 +267,11 @@ public class BaselineMapFragment extends Fragment {
     public void onResume() {
         super.onResume();
         // solves issue of layout not reloading on first load
-        new Handler().post(new Runnable(){
+        new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
                 seekbar.setProgress(50);
             }
-        });
+        }, 250);
     }
 }
