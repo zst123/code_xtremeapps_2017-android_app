@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -172,8 +173,17 @@ public class BaselineMapFragment extends Fragment {
                                         imageView.setImageBitmap(decodedByte);
                                     }
                                 });
+                                Log.d("ZST123", "link_for_b64 - result:");
+                                Log.d("ZST123", result);
+                            } else {
+                                if (Common.DEBUG) {
+                                    Toast.makeText(getActivity(), "thiz is null", Toast.LENGTH_LONG).show();
+                                }
                             }
                         } catch (IOException e) {
+                            if (Common.DEBUG) {
+                                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
                             e.printStackTrace();
                         }
                     }
