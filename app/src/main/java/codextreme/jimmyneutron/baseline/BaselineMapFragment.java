@@ -23,7 +23,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mingle.sweetpick.BlurEffect;
 import com.mingle.sweetpick.CustomDelegate;
 import com.mingle.sweetpick.SweetSheet;
 import com.squareup.picasso.Picasso;
@@ -49,6 +48,8 @@ public class BaselineMapFragment extends Fragment {
     public static final String BUNDLE_USER = "user";
     public static final String BUNDLE_TITLE = "title";
     public static final String BUNDLE_COORDINATES = "coord";
+    public static final String BUNDLE_RANDOM_COLOUR = "random_colour";
+
     private BaselineMapView imageView;
     private LinearLayout linearLayout;
 
@@ -85,19 +86,13 @@ public class BaselineMapFragment extends Fragment {
             }
         });
 
-        final Handler handler = new Handler();
-        handler.postDelayed(new Thread() {
-            @Override
-            public void run() {
-                imageView.randomiseColors();
-                handler.postDelayed(this, 5000);
-            }
-        }, 5000);
-
         return view;
     }
 
 
+    public BaselineMapView getBaselineMapView() {
+        return imageView;
+    }
 
     public void showDialog(Context thiz, final BaselineMapView.DeskHolder desk) {
         // SweetSheet 控件,根据 rl 确认位置
@@ -247,6 +242,19 @@ public class BaselineMapFragment extends Fragment {
                 TextView titleBaseline = (TextView) getView().findViewById(R.id.titleBaseline);
                 titleBaseline.setVisibility(View.VISIBLE);
                 titleBaseline.setText(title);
+            }
+
+            boolean doRandomColours = bundle.containsKey(BUNDLE_RANDOM_COLOUR);
+            if (doRandomColours) {
+                final Handler handler = new Handler();
+                handler.postDelayed(new Thread() {
+                    @Override
+                    public void run() {
+                        imageView.randomiseColors();
+                        handler.postDelayed(this, 5000);
+                    }
+                }, 5000);
+
             }
 
             //mUsername = bundle.getString(BUNDLE_USER);

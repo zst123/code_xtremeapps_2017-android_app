@@ -1,5 +1,6 @@
 package codextreme.jimmyneutron;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import codextreme.jimmyneutron.tradbooking.CheckBookingFragment;
 import codextreme.jimmyneutron.wordcloud.WordCloudFragment;
 
 import static codextreme.jimmyneutron.baseline.BaselineMapFragment.BUNDLE_BASE64_IMG;
+import static codextreme.jimmyneutron.baseline.BaselineMapFragment.BUNDLE_RANDOM_COLOUR;
 import static codextreme.jimmyneutron.baseline.BaselineMapFragment.BUNDLE_URL;
 import static codextreme.jimmyneutron.baseline.BaselineMapFragment.BUNDLE_USER;
 
@@ -36,16 +38,24 @@ public class HomeActivity extends MaterialActivity {
     WordCloudFragment fragmentWordCloud;
     CheckBookingFragment fragmentBooking;
 
+    @SuppressLint("ValidFragment")
     public void initFragments() {
         if (fragmentBooking == null) {
             fragmentBooking = new CheckBookingFragment();
         }
 
         if (fragmentOfficeView == null) {
-            fragmentOfficeView = new BaselineMapFragment();
+            fragmentOfficeView = new BaselineMapFragment() {
+                @Override
+                public void onActivityCreated(Bundle savedInstanceState) {
+                    getBaselineMapView().addDesksHardCoded();
+                    super.onActivityCreated(savedInstanceState);
+                }
+            };
             Bundle args = new Bundle();
-            //args.putString(BUNDLE_URL, URL_TEST);
-            args.putString(BUNDLE_BASE64_IMG, Common.URL_BASELINE);
+            args.putString(BUNDLE_URL, URL_TEST);
+            //args.putString(BUNDLE_BASE64_IMG, Common.URL_BASELINE);
+            args.putBoolean(BUNDLE_RANDOM_COLOUR, true);
             fragmentOfficeView.setArguments(args);
         }
 
