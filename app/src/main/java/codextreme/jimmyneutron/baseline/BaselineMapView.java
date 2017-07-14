@@ -96,8 +96,14 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
                 return super.onSingleTapUp(event);
             }
         });
+    }
 
+    public BaselineMapView addDesk(DeskHolder desk) {
+        mDesks.add(desk);
+        return this;
+    }
 
+    public void addDesksHardCoded() {
         //TODO init desk from online
         mDesks.clear();
 
@@ -155,6 +161,7 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
                 "43546", "Table"
         ));
 
+        requestLayout();
     }
 
     @Override
@@ -227,7 +234,7 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
     }
 
 
-    public Path createPathPolygonScaled(
+    public static Path createPathPolygonScaled(
             int x1, int y1,
             int x2, int y2,
             int x3, int y3,
@@ -241,7 +248,7 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
         );
     }
 
-    public Path createPathPolygon(
+    public static Path createPathPolygon(
             float x1, float y1,
             float x2, float y2,
             float x3, float y3,
@@ -293,7 +300,7 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
         public void onDeskClick(DeskHolder desk);
     }
 
-    public class DeskHolder {
+    public static class DeskHolder {
         Path path = null;
         int color;
         String name;

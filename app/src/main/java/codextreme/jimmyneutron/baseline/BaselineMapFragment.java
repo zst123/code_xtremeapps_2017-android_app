@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
@@ -31,6 +32,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import codextreme.jimmyneutron.Common;
 import codextreme.jimmyneutron.R;
@@ -45,6 +48,7 @@ public class BaselineMapFragment extends Fragment {
     public static final String BUNDLE_URL = "url";
     public static final String BUNDLE_USER = "user";
     public static final String BUNDLE_TITLE = "title";
+    public static final String BUNDLE_COORDINATES = "coord";
     private BaselineMapView imageView;
     private LinearLayout linearLayout;
 
@@ -180,6 +184,54 @@ public class BaselineMapFragment extends Fragment {
                                     Toast.makeText(getActivity(), "thiz is null", Toast.LENGTH_LONG).show();
                                 }
                             }
+                        } catch (IOException e) {
+                            if (Common.DEBUG) {
+                                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
+            }
+
+            final String coordUrl = bundle.getString(BUNDLE_COORDINATES);
+            if (!TextUtils.isEmpty(coordUrl)) {
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            final String result = Jsoup.connect(coordUrl).get().text();
+                            Log.d("ZST123", "coordUrl - result:");
+                            Log.d("ZST123", result);
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //1,0:(260, 301), (292, 334);1,1:(88, 297), (139, 343);
+                                    // Regex of (\d*?),(\d*?):\((\d*?), (\d*?)\), \((\d*?), (\d*?)\);
+                                    // Escaped version: (\\d*?),(\\d*?):\\((\\d*?), (\\d*?)\\), \\((\\d*?), (\\d*?)\\);
+                                    Pattern pattern = Pattern.compile("(\\d*?),(\\d*?):\\((\\d*?), (\\d*?)\\), \\((\\d*?), (\\d*?)\\);");
+                                    Matcher matcher = pattern.matcher(result);
+                                    while (matcher.find()) {
+                                        Log.d("ZST123", "coordUrl - matcher.find():" + matcher.group(0));
+                                        String table = matcher.group(1);
+                                        String seat = matcher.group(2);
+                                        int x1 = Integer.parseInt(matcher.group(3));
+                                        int y1 = Integer.parseInt(matcher.group(4));
+                                        int x2 = Integer.parseInt(matcher.group(5));
+                                        int y2 = Integer.parseInt(matcher.group(6));
+                                        imageView.addDesk(new BaselineMapView.DeskHolder(
+                                                x1, y1,
+                                                x2, y1,
+                                                x2, y2,
+                                                x1, y2,
+                                                Color.RED,
+                                                "Table " + table + "(Seat " + seat + ")",
+                                                table + "," + seat,
+                                                "Table " + table
+                                        ));
+                                    }
+                                }
+                            });
                         } catch (IOException e) {
                             if (Common.DEBUG) {
                                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();

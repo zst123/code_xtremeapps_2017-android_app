@@ -48,6 +48,7 @@ public class CheckBookingFragment : Fragment() {
         //args.putString(BUNDLE_URL, URL_TEST);
         args.putString(BUNDLE_BASE64_IMG, Common.URL_BASELINE)
         args.putString(BUNDLE_TITLE, title)
+        args.putString(BUNDLE_COORDINATES, Common.URL_COORDINATES)
         fragmentOfficeView.arguments = args
         active.changeFragment(fragmentOfficeView, true)
         //val sidebarList = activity.findViewById(R.id.sidebar_listview) as ListView
