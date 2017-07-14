@@ -53,6 +53,7 @@ public class BaselineMapFragment extends Fragment {
     private BaselineMapView imageView;
     private LinearLayout linearLayout;
     private SeekBar seekbar;
+    private boolean doRandomColours;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -246,7 +247,7 @@ public class BaselineMapFragment extends Fragment {
                 titleBaseline.setText(title);
             }
 
-            boolean doRandomColours = bundle.containsKey(BUNDLE_RANDOM_COLOUR);
+            doRandomColours = bundle.containsKey(BUNDLE_RANDOM_COLOUR);
             if (doRandomColours) {
                 final Handler handler = new Handler();
                 handler.postDelayed(new Thread() {
@@ -273,5 +274,68 @@ public class BaselineMapFragment extends Fragment {
                 seekbar.setProgress(50);
             }
         }, 250);
+
+        if (!doRandomColours) {
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread t = new Thread() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Document doc = Jsoup.connect(Common.URL_SEAT_STATUS)
+                                            .data("floorPlanId", "1")
+                                            .post();
+                                    // 0;0;Green:1;0;Green:2;0;Green:3;0;Green:4;0;RED:5;0;RED:6;0;Green:7;0;Green:8;0;Green:9;0;RED:
+                                    for (String eachSeat : doc.text().split(":")) {
+                                        if (!TextUtils.isEmpty(eachSeat.trim())) {
+                                            // seat;table;color
+                                            Log.d("ZST123", "Doing for seat: " + eachSeat);
+                                            String[] items = eachSeat.trim().split(";");
+                                            for (BaselineMapView.DeskHolder desk : imageView.getDesks()) {
+                                                Log.d("ZST123", ">> " + desk.seatId + " and " + items[2]);
+                                                if (desk.seatId.equals(items[1] + "," + items[0])) {
+                                                    Log.d("ZST123", ">> Got in at " + desk.seatId + " and " + items[2]);
+                                                    if (items[2].equalsIgnoreCase("green")) {
+                                                        desk.color = Color.GREEN;
+                                                    } else if (items[2].equalsIgnoreCase("red")) {
+                                                        desk.color = Color.RED;
+                                                    } else if (items[2].equalsIgnoreCase("yellow")) {
+                                                        desk.color = Color.YELLOW;
+                                                    } else {
+                                                        desk.color = Color.GRAY;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            imageView.invalidate();
+                                        }
+                                    });
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        };
+                        t.start();
+                        t.join();
+                        if (isVisible()) {
+                            handler.postDelayed(this, Common.TIME_UPDATE_SEAT_STATUS);
+                        } else {
+                            Log.d("ZST123", "BaselineMapFragment: onResume - not visible, killing");
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }, Common.TIME_UPDATE_SEAT_STATUS);
+        }
+
     }
 }

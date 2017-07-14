@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 import codextreme.jimmyneutron.Common;
@@ -271,6 +272,10 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
 
         }
         return true;
+    }
+
+    public List<DeskHolder> getDesks() {
+        return mDesks;
     }
 
     public void randomiseColors() {
