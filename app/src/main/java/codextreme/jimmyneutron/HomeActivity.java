@@ -22,6 +22,7 @@ import codextreme.jimmyneutron.baseline.BaselineMapFragment;
 import codextreme.jimmyneutron.interfaces.MaterialActivity;
 import codextreme.jimmyneutron.sidebar.SidebarListAdapter;
 import codextreme.jimmyneutron.tradbooking.CheckBookingFragment;
+import codextreme.jimmyneutron.tradbooking.ProfileFragment;
 import codextreme.jimmyneutron.wordcloud.WordCloudFragment;
 
 import static codextreme.jimmyneutron.baseline.BaselineMapFragment.BUNDLE_BASE64_IMG;
@@ -37,9 +38,14 @@ public class HomeActivity extends MaterialActivity {
     BaselineMapFragment fragmentOfficeView;
     WordCloudFragment fragmentWordCloud;
     CheckBookingFragment fragmentBooking;
+    ProfileFragment fragmentProfile;
 
     @SuppressLint("ValidFragment")
     public void initFragments() {
+        if (fragmentProfile == null) {
+            fragmentProfile = new ProfileFragment();
+        }
+
         if (fragmentBooking == null) {
             fragmentBooking = new CheckBookingFragment();
         }
@@ -98,6 +104,7 @@ public class HomeActivity extends MaterialActivity {
         // Init sidebar list view
         final ListView listView = (ListView) findViewById(R.id.sidebar_listview);
         SidebarListAdapter adapter = new SidebarListAdapter(this)
+                .add("My Profile", R.drawable.ic_supervisor_account_black_24dp)
                 .add("Office View", R.drawable.ic_desktop_mac_black_24dp)
                 .add("Booking", R.drawable.ic_book_black_24dp)
                 .add("Word Cloud", R.drawable.ic_cloud_black_24dp);
@@ -110,6 +117,9 @@ public class HomeActivity extends MaterialActivity {
                 SidebarListAdapter.SidebarListAdapterItem itemValue =
                         (SidebarListAdapter.SidebarListAdapterItem) listView.getItemAtPosition(position);
                 switch (itemValue.text) {
+                    case "My Profile":
+                        newFragment = fragmentProfile;
+                        break;
                     case "Office View":
                         newFragment = fragmentOfficeView;
                         break;
@@ -152,7 +162,7 @@ public class HomeActivity extends MaterialActivity {
             if (savedInstanceState == null) {
                 // Add the fragment to the 'fragment_container' FrameLayout
                 getFragmentManager().beginTransaction()
-                        .add(R.id.fragment_container, fragmentOfficeView).commit();
+                        .add(R.id.fragment_container, fragmentProfile).commit();
 
             }
         }

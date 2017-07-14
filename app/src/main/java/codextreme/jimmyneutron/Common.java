@@ -24,7 +24,6 @@ public class Common {
     public static final String URL_WORDCLOUD = "http://codextremejimmyneutron.azurewebsites.net/webservice.asmx/getCloudByTable";
     public static final String URL_SEAT_STATUS = "http://codextremejimmyneutron.azurewebsites.net/webservice.asmx/ViewStatusofSeat";
 
-
     public static final int TIME_UPDATE_SEAT_STATUS = 2000;
 
 

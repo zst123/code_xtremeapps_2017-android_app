@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/ic_generic_user"
+        app:civ_border_color="#00000000"
+        app:civ_border_width="2dp" />
+
+    <TextView
+        android:id="@+id/userprofile_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@android:string/unknownName"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:visibility="visible" />
+
+    <Switch
+        android:id="@+id/userprofile_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:padding="16dp"
+        android:text="Allow sharing of my interests\nand competencies"
+        android:textSize="18sp" />
+
+</LinearLayout>
