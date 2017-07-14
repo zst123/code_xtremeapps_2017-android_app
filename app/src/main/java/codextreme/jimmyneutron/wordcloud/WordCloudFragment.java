@@ -36,7 +36,7 @@ public class WordCloudFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_wordcloud, container, false);
         browser = (WebView) view.findViewById(R.id.webView1);
         attachWordCloudToBrowser(browser, container.getWidth(),
-                container.getHeight(), "0");
+                container.getHeight(), "");
         return view;
     }
 

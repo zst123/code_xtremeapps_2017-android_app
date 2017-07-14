@@ -220,7 +220,7 @@ public class BaselineMapFragment extends Fragment {
                                                 x2, y2,
                                                 x1, y2,
                                                 Color.RED,
-                                                "Table " + table + "(Seat " + seat + ")",
+                                                "Table " + table + " (Seat " + seat + ")",
                                                 table + "," + seat,
                                                 "Table " + table
                                         ));

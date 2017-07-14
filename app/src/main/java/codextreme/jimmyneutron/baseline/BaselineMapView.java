@@ -121,7 +121,7 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
                 280, 396,
                 117, 455,
                 118, 331,
-                Color.RED, "Desk 1",
+                Color.RED, "Table 1",
                 "43546", "Table"
         ));
 
@@ -130,7 +130,7 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
                 296, 294,
                 392, 273,
                 393, 336,
-                Color.GREEN, "Desk 2",
+                Color.GREEN, "Table 2",
                 "43545", "Table"
         ));
 
@@ -139,7 +139,7 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
                 393, 333,
                 446, 311,
                 446, 261,
-                Color.RED, "Desk 3",
+                Color.RED, "Table 3",
                 "43546", "Table"
         ));
 
@@ -148,7 +148,7 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
                 523, 288,
                 561, 251,
                 634, 263,
-                Color.RED, "Desk 4",
+                Color.RED, "Table 4",
                 "43546", "Table"
         ));
 
@@ -157,7 +157,7 @@ public class BaselineMapView extends ImageView implements View.OnTouchListener {
                 715, 436,
                 404, 380,
                 497, 318,
-                Color.RED, "Desk 5",
+                Color.RED, "Table 5",
                 "43546", "Table"
         ));
 
