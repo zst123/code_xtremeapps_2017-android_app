@@ -52,6 +52,7 @@ public class BaselineMapFragment extends Fragment {
 
     private BaselineMapView imageView;
     private LinearLayout linearLayout;
+    private SeekBar seekbar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,7 +62,7 @@ public class BaselineMapFragment extends Fragment {
 
         linearLayout = (LinearLayout) view.findViewById(android.R.id.home);
 
-        SeekBar seekbar = (SeekBar) view.findViewById(android.R.id.secondaryProgress);
+        seekbar = (SeekBar) view.findViewById(android.R.id.secondaryProgress);
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -262,4 +263,15 @@ public class BaselineMapFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // solves issue of layout not reloading on first load
+        new Handler().post(new Runnable(){
+            @Override
+            public void run() {
+                seekbar.setProgress(50);
+            }
+        });
+    }
 }
