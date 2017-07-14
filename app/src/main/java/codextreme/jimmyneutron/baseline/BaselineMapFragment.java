@@ -2,10 +2,13 @@ package codextreme.jimmyneutron.baseline;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +25,11 @@ import com.mingle.sweetpick.CustomDelegate;
 import com.mingle.sweetpick.SweetSheet;
 import com.squareup.picasso.Picasso;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.IOException;
+
 import codextreme.jimmyneutron.Common;
 import codextreme.jimmyneutron.R;
 
@@ -31,6 +39,7 @@ import static codextreme.jimmyneutron.wordcloud.WordCloudFragment.attachWordClou
 // http://www.vogella.com/tutorials/AndroidFragments/article.html
 // https://developer.android.com/training/basics/fragments/fragment-ui.html
 public class BaselineMapFragment extends Fragment {
+    public static final String BUNDLE_BASE64_IMG = "url_base64";
     public static final String BUNDLE_URL = "url";
     public static final String BUNDLE_USER = "user";
     private BaselineMapView imageView;
@@ -134,10 +143,37 @@ public class BaselineMapFragment extends Fragment {
                 if (Common.DEBUG)
                     Toast.makeText(this.getActivity(), link, Toast.LENGTH_SHORT).show();
 
+
                 Picasso.with(getActivity())
                         .load(link)
                         .placeholder(R.drawable.ic_done)
                         .into(imageView);
+            }
+
+            final String link_for_b64 = bundle.getString(BUNDLE_BASE64_IMG);
+            if (!TextUtils.isEmpty(link_for_b64)) {
+                imageView.setImageResource(R.drawable.ic_done); // Placeholder
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            Document doc = Jsoup.connect(link_for_b64).get();
+                            final String result = doc.text();
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
+                                    byte[] decodedString = Base64.decode(result, Base64.DEFAULT);
+                                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                                    imageView.setImageBitmap(decodedByte);
+                                }
+                            });
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
             }
 
             //mUsername = bundle.getString(BUNDLE_USER);

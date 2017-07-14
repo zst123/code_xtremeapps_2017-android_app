@@ -16,8 +16,8 @@ public class Common {
 
     public static final boolean DEBUG = true;
 
-    public static final String URL_BASELINE = "https://assets.entrepreneur.com/content/16x9/822/20160118164234-interior-modern-office-desks-space-computers.jpeg";
-    // public static final String URL_BASELINE = "https://assets.entrepreneur.com/content/16x9/822/20160118164234-interior-modern-office-desks-space-computers.jpeg";
+
+    public static final String URL_BASELINE = "http://codextremejimmyneutron.azurewebsites.net/webservice.asmx/GetLastFloorPlanPic";;
 
     public static final String URL_BOOKING = "http://codextremejimmyneutron.azurewebsites.net/webservice.asmx/CreateNewBooking";
     public static final String USER_AGENT = "Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30";

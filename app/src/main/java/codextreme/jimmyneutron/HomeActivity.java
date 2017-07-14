@@ -23,13 +23,14 @@ import codextreme.jimmyneutron.sidebar.SidebarListAdapter;
 import codextreme.jimmyneutron.tradbooking.CheckBookingFragment;
 import codextreme.jimmyneutron.wordcloud.WordCloudFragment;
 
+import static codextreme.jimmyneutron.baseline.BaselineMapFragment.BUNDLE_BASE64_IMG;
 import static codextreme.jimmyneutron.baseline.BaselineMapFragment.BUNDLE_URL;
 import static codextreme.jimmyneutron.baseline.BaselineMapFragment.BUNDLE_USER;
 
 
 public class HomeActivity extends MaterialActivity {
 
-    public static final String URL_TEST = Common.URL_BASELINE;
+    public static final String URL_TEST = "https://assets.entrepreneur.com/content/16x9/822/20160118164234-interior-modern-office-desks-space-computers.jpeg";;
 
     BaselineMapFragment fragmentOfficeView;
     WordCloudFragment fragmentWordCloud;
@@ -43,7 +44,8 @@ public class HomeActivity extends MaterialActivity {
         if (fragmentOfficeView == null) {
             fragmentOfficeView = new BaselineMapFragment();
             Bundle args = new Bundle();
-            args.putString(BUNDLE_URL, URL_TEST);
+            //args.putString(BUNDLE_URL, URL_TEST);
+            args.putString(BUNDLE_BASE64_IMG, Common.URL_BASELINE);
             fragmentOfficeView.setArguments(args);
         }
 
