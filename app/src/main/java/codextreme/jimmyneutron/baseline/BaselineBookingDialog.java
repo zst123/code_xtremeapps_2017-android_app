@@ -71,7 +71,7 @@ public class BaselineBookingDialog {
                 showTimePicker(a, "Start Timing", new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
-                        startTimeButton.setText(hourOfDay + ":00");
+                        startTimeButton.setText(String.format("%02d:00", hourOfDay));
                     }
                 });
             }
@@ -83,7 +83,7 @@ public class BaselineBookingDialog {
                 showTimePicker(a, "End Timing", new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
-                        endTimeButton.setText(hourOfDay + ":00");
+                        endTimeButton.setText(String.format("%02d:00", hourOfDay));
                     }
                 });
             }
