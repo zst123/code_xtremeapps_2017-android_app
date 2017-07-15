@@ -21,6 +21,7 @@ import com.squareup.picasso.Picasso;
 import codextreme.jimmyneutron.baseline.BaselineMapFragment;
 import codextreme.jimmyneutron.interfaces.MaterialActivity;
 import codextreme.jimmyneutron.sidebar.SidebarListAdapter;
+import codextreme.jimmyneutron.tradbooking.AnalyticsFragment;
 import codextreme.jimmyneutron.tradbooking.CheckBookingFragment;
 import codextreme.jimmyneutron.tradbooking.ProfileFragment;
 import codextreme.jimmyneutron.wordcloud.WordCloudFragment;
@@ -35,6 +36,7 @@ public class HomeActivity extends MaterialActivity {
 
     public static final String URL_TEST = "https://assets.entrepreneur.com/content/16x9/822/20160118164234-interior-modern-office-desks-space-computers.jpeg";;
 
+    AnalyticsFragment fragmentAnalytics;
     BaselineMapFragment fragmentOfficeView;
     WordCloudFragment fragmentWordCloud;
     CheckBookingFragment fragmentBooking;
@@ -42,6 +44,10 @@ public class HomeActivity extends MaterialActivity {
 
     @SuppressLint("ValidFragment")
     public void initFragments() {
+        if (fragmentAnalytics == null) {
+            fragmentAnalytics = new AnalyticsFragment();
+        }
+
         if (fragmentProfile == null) {
             fragmentProfile = new ProfileFragment();
         }
@@ -107,7 +113,8 @@ public class HomeActivity extends MaterialActivity {
                 .add("My Profile", R.drawable.ic_supervisor_account_black_24dp)
                 .add("Office View", R.drawable.ic_desktop_mac_black_24dp)
                 .add("Booking", R.drawable.ic_book_black_24dp)
-                .add("Word Cloud", R.drawable.ic_cloud_black_24dp);
+                .add("Word Cloud", R.drawable.ic_cloud_black_24dp)
+                .add("Data Analytics", android.R.drawable.presence_audio_online);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -129,6 +136,8 @@ public class HomeActivity extends MaterialActivity {
                     case "Word Cloud":
                         newFragment = fragmentWordCloud;
                         break;
+                    case "Data Analytics":
+                        newFragment = fragmentAnalytics;
                     default:
                         break;
                 }

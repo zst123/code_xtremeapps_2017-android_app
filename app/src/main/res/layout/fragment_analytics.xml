@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_analytics"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_marginTop="48dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-light"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:text="Office Usage Statistics"
+            android:textColor="#000"
+            android:textSize="24sp"
+            android:padding="4dp"
+            android:visibility="visible" />
+
+        <view
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            class="im.dacer.androidcharts.ClockPieView"
+            android:id="@+id/clock_pie_view" />
+
+    </LinearLayout>
+
+</RelativeLayout>
