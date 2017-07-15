@@ -135,11 +135,14 @@ public class BaselineBookingDialog {
                             */
                             Connection c = Jsoup.connect(Common.URL_BOOKING)
                                     .data("username", username)
-                                    .data("facilityId", desk.seatId)
+                                    .data("floorPlanId", "1")
+                                    .data("tableId", desk.seatId.split(",")[0])
+                                    .data("facilityId", desk.seatId.split(",")[1])
                                     .data("facilityType", desk.seatType)
                                     .data("startTime", startTimeButton.getText().toString())
                                     .data("endTime", endTimeButton.getText().toString())
                                     .data("dateTimeBook", startDateButton.getText().toString())
+                                    .data("BookDateTime", startDateButton.getText().toString())
                                     .data("date", endDateButton.getText().toString())
 
                                     .ignoreHttpErrors(true);
