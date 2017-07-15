@@ -46,7 +46,7 @@ public class BaselineBookingDialog {
         final Button endDateButton = (Button) dialogView.findViewById(R.id.endDateButton);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.HOUR, 1);
+        //calendar.add(Calendar.HOUR, 1);
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         int dd1 = calendar.get(Calendar.DATE);
         int mm1 = calendar.get(Calendar.MONTH);
