@@ -28,6 +28,13 @@
         android:textSize="24sp"
         android:visibility="visible" />
 
+    <view
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_height="200dp"
+        class="im.dacer.androidcharts.BarView"
+        android:id="@+id/bar_view" />
+
     <Switch
         android:id="@+id/userprofile_switch"
         android:layout_width="match_parent"
