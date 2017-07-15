@@ -49,13 +49,13 @@ public class BaselineBookingDialog {
         //calendar.add(Calendar.HOUR, 1);
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         int dd1 = calendar.get(Calendar.DATE);
-        int mm1 = calendar.get(Calendar.MONTH);
+        int mm1 = calendar.get(Calendar.MONTH) + 1;
         int yy1 = calendar.get(Calendar.YEAR);
 
         calendar.add(Calendar.HOUR, 1);
         int nextHour = calendar.get(Calendar.HOUR_OF_DAY);
         int dd2 = calendar.get(Calendar.DATE);
-        int mm2 = calendar.get(Calendar.MONTH);
+        int mm2 = calendar.get(Calendar.MONTH) + 1;
         int yy2 = calendar.get(Calendar.YEAR);
 
         startTimeButton.setText(currentHour+":00");
