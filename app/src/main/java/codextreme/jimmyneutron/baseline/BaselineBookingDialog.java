@@ -158,6 +158,9 @@ public class BaselineBookingDialog {
                                             .setMessage(success ? "The booking is successful!" : result)
                                             .setPositiveButton(android.R.string.yes, null)
                                             .show();
+                                    if (success) {
+                                        Common.JUMBLE_WORDCLOUD = true;
+                                    }
                                 }
                             });
                         } catch (IOException e) {

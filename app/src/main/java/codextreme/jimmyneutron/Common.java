@@ -17,6 +17,8 @@ public class Common {
 
     public static final boolean DEBUG = true;
 
+    public static boolean JUMBLE_WORDCLOUD = false;
+
 
     public static final String URL_BASELINE = "http://codextremejimmyneutron.azurewebsites.net/webservice.asmx/GetLastFloorPlanPic";;
     public static final String URL_COORDINATES = "http://codextremejimmyneutron.azurewebsites.net/webservice.asmx/GetLastFloorPlanPicCoordinates";

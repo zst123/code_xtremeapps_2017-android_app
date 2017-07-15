@@ -3,7 +3,7 @@ package codextreme.jimmyneutron.wordcloud
 import android.util.Log
 import codextreme.jimmyneutron.Common
 import org.jsoup.Jsoup
-
+import java.util.*
 
 
 /**
@@ -24,6 +24,10 @@ public class WordCloudTextCreator constructor(tableId: String) {
             | Online Services Payroll/Personnel PC Communications Presentation Report Writing Scheduling/Planning
             | Screen Grabbers Security Spreadsheets Miscellaneous Apps
             """.trimMargin().replace("\n", "").split(" ")
+            Log.d("ZST123", "To jumble?" + (Common.JUMBLE_WORDCLOUD))
+            if (Common.JUMBLE_WORDCLOUD) {
+                Collections.shuffle(strArr)
+            }
         } else {
             strArr = listOf("Error")
             val t = object : Thread() {
