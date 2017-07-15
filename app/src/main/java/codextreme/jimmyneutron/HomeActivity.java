@@ -36,6 +36,8 @@ public class HomeActivity extends MaterialActivity {
 
     public static final String URL_TEST = "https://assets.entrepreneur.com/content/16x9/822/20160118164234-interior-modern-office-desks-space-computers.jpeg";;
 
+    private static Fragment currentFragment = null;
+
     AnalyticsFragment fragmentAnalytics;
     BaselineMapFragment fragmentOfficeView;
     WordCloudFragment fragmentWordCloud;
@@ -77,6 +79,9 @@ public class HomeActivity extends MaterialActivity {
     }
 
     public void changeFragment(Fragment newFragment, boolean backStack) {
+        if (newFragment == currentFragment) return;
+        currentFragment = newFragment;
+
         FragmentTransaction transaction = HomeActivity.this.getFragmentManager().beginTransaction();
         transaction.remove(getFragmentManager().findFragmentById(R.id.fragment_container));
         transaction.add(R.id.fragment_container, newFragment);
@@ -172,6 +177,7 @@ public class HomeActivity extends MaterialActivity {
                 // Add the fragment to the 'fragment_container' FrameLayout
                 getFragmentManager().beginTransaction()
                         .add(R.id.fragment_container, fragmentProfile).commit();
+                currentFragment = fragmentProfile;
 
             }
         }
